@@ -1,0 +1,42 @@
+
+h2{
+  margin-right: 50px  ;
+  font-family: "Times New Roman", Times, serif;
+}
+
+#calc-contain{
+  position: relative;
+  width: 600px;
+
+  border-radius: 12px;
+  margin: auto;
+  padding: 20px 20px 100px 20px;
+}
+
+#btequal{
+  width: 20%;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  margin-left: 13px;
+  margin-top: 10px;
+}
+
+#bt {
+  width: 20%;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  margin-left: 13px;
+  margin-top: 10px;
+}
+
+
+#disp {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 4px 0px 12px wheat;
+}
