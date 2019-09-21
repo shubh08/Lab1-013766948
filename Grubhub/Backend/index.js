@@ -7,6 +7,15 @@ let cookieParser = require('cookie-parser');
 let cors = require('cors');
 let sqlCon = require('mysql');
 const bcrypt = require('bcrypt');
+const registerOwner = require('./controllers/registerOwner');
+const registerCustomer = require('./controllers/registerCustomer');
+const signinCustomer = require('./controllers/signinCustomer');
+const signinOwner = require('./controllers/signinOwner');
+const updateOwner = require('./controllers/updateOwner');
+const updateUser = require('./controllers/updateUser');
+// const profile = require('./controllers/profile');
+// const image = require('./controllers/image');
+
 const saltRounds = 10;
 
 
@@ -94,83 +103,50 @@ app.post('/login', function (req, res) {
 
 app.post('/signup',(req,res)=>{
 console.log('Inside signup post',req.body);
+
 if(req.body.type==='customer')
 {
-    const {name,email,pass} = req.body;
-
-connPool.getConnection((error,conn)=>{
-    let encryptPass='';
-    bcrypt.hash(pass, saltRounds, function(err, hash) {
-        encryptPass = hash;
-        console.log('encrypt',encryptPass);
-        console.log('Type of',typeof encryptPass,encryptPass.length);
-        let queryTest = 'insert into customer_info(cust_name,cust_email,cust_hash) values (?, ?, ?)';
-        console.log(queryTest);
-        conn.query(queryTest,[name,email,encryptPass],(error,res)=>{
-            if(error)
-            {
-                throw error;
-            }
-            else{
-                console.log(res);
-            }
-        }) 
-        conn.release();
-      });
-   
-})
-
+registerCustomer.registerCust(req, res, connPool, bcrypt)
 }
 
 else{
-    const {name,email,pass,rest_name,rest_zipcode} = req.body;
-
-    connPool.getConnection((error,conn)=>{
-        let encryptPass='';
-        let owner_id = '';
-        bcrypt.hash(pass, saltRounds, function(err, hash) {
-            encryptPass = hash;
-          });
-        let queryTest = 'insert into restaurant_owner_details(name,email,owner_hash) values('+name+email+encryptPass+')';
-        conn.query(queryTest,[name,email,encryptPass],(error,res)=>{
-            if(error)
-            {
-                throw error;
-            }
-            else{
-                console.log('Owner Details created',res);
-                owner_id = res.owner_id;  
-            }
-        }) 
-        conn.release();
-    })
-
-    connPool.getConnection((error,conn)=>{
-
-        let queryTest = 'insert into restaurant(name,zipcode,owner_hash) values('+rest_name+rest_zipcode+owner_id+')';
-        conn.query(queryTest,(error,res)=>{
-            if(error)
-            {
-                throw error;
-            }
-            else{
-                console.log('Restaurant Details created',res);
-            }
-        }) 
-        conn.release();
-    })
-
+registerOwner.registerOwn(req, res, connPool, bcrypt);
 }
-res.writeHead(200, {
-    'Content-Type': 'application/json'
-});
 
-res.end('Success');
+
 })
 
 
 
+// User Signin
+app.post('/signin',(req,res)=>{
+    console.log('Inside sign in..',req.body);
 
+    if(req.body.type==='customer')
+    {
+        signinCustomer.signinCust(req, res, connPool, bcrypt)
+    }
+    
+    else{
+        signinOwner.signinOwn(req, res, connPool, bcrypt);
+    }
+    
+
+})
+
+// User Update
+app.post('/update',(req,res)=>{
+    console.log('Inside uodate info..',req.body);
+    if(req.body.type==='customer')
+    {
+        updateUser.updateUser(req, res, connPool)
+    }
+    
+    else{
+        updateOwner.updateOwner(req, res, connPool);
+    }
+
+})
 
 
 
