@@ -22,7 +22,7 @@ const signinCust = (req, res, connPool, bcrypt) =>{
                      
                      res.end('No user with such email');
                  }
-                 else{
+                 else{ 
                      bcrypt.compare(pass, result[0].cust_hash, function(err, status) {
                              if(status)
                              {
