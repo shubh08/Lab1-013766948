@@ -67,37 +67,37 @@ let books = [
     { "BookID": "3", "Title": "Book 3", "Author": "Author 3" }
 ]
 
-//Route to handle Post Request Call
-app.post('/login', function (req, res) {
+// //Route to handle Post Request Call
+// app.post('/login', function (req, res) {
 
-    // Object.keys(req.body).forEach(function(key){
-    //     req.body = JSON.parse(key);
-    // });
-    // let username = req.body.username;
-    // let password = req.body.password;
-    console.log("Inside Login Post Request");
-    //console.log("Req Body : ", username + "password : ",password);
-    console.log("Req Body : ", req.body);
-    Users.filter(function (user) {
-        if (user.username === req.body.username && user.password === req.body.password) {
-            res.cookie('cookie', "admin", { maxAge: 900000, httpOnly: false, path: '/' });
-            req.session.user = user;
-            res.writeHead(200, {
-                'Content-Type': 'text/plain'
-            })
-            res.end("Successful Login");
-        }
+//     // Object.keys(req.body).forEach(function(key){
+//     //     req.body = JSON.parse(key);
+//     // });
+//     // let username = req.body.username;
+//     // let password = req.body.password;
+//     console.log("Inside Login Post Request");
+//     //console.log("Req Body : ", username + "password : ",password);
+//     console.log("Req Body : ", req.body);
+//     Users.filter(function (user) {
+//         if (user.username === req.body.username && user.password === req.body.password) {
+//             res.cookie('cookie', "admin", { maxAge: 900000, httpOnly: false, path: '/' });
+//             req.session.user = user;
+//             res.writeHead(200, {
+//                 'Content-Type': 'text/plain'
+//             })
+//             res.end("Successful Login");
+//         }
 
-        else{
-            res.writeHead(400, {
-                'Content-Type': 'text/plain'
-            })
-            res.end("UnSuccessful Login");
-        }
-    })
+//         else{
+//             res.writeHead(400, {
+//                 'Content-Type': 'text/plain'
+//             })
+//             res.end("UnSuccessful Login");
+//         }
+//     })
 
 
-});
+// });
 
 // User signup
 

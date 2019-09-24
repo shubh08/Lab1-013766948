@@ -15,7 +15,7 @@ connPool.getConnection((error,conn)=>{
                 'Content-Type': 'application/json'
             });
             
-            res.end('Email ID already exists!');
+            res.end(JSON.stringify({status:"failure"}));
            return;
             
         }
@@ -36,7 +36,7 @@ connPool.getConnection((error,conn)=>{
                         res.writeHead(200, {
                             'Content-Type': 'application/json'
                         });
-                        
+                        resultsignup.status='success'
                         res.end(JSON.stringify(resultsignup));
                        
                     }

@@ -19,8 +19,8 @@ const signinCust = (req, res, connPool, bcrypt) =>{
                      res.writeHead(200, {
                          'Content-Type': 'application/json'
                      });
-                     
-                     res.end('No user with such email');
+                     console.log('No user with such email')
+                     res.end(JSON.stringify({status:"failure"}));
                  }
                  else{ 
                      bcrypt.compare(pass, result[0].cust_hash, function(err, status) {
