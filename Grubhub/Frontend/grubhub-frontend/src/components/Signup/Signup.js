@@ -6,16 +6,29 @@ import * as actions from '../actions/actions'
 class Signup extends Component {
 
 
+    getDataSignup = ()=>{
+
+        return {
+            fname:this.props.cust_fname,
+            lname:this.props.cust_lname ,
+            email: this.props.cust_email,
+            pass: this.props.cust_pass,
+            type:'customer'
+        }
+    }
+
     render(){
 
-        const dataSignup ={
-            fname:this.props.fname,
-            lname:this.props.lname ,
-            email: this.props.email,
-            pass: this.props.pass
-        }
-
+        let signUpStatus ;
+     
+        if (this.props.loginStatus==='failure') {
+            signUpStatus = <div id='invalidLogin'><h2><font color="red">Email id already exists!</font></h2></div>;
+          }
+          else if(this.props.loginStatus==='success')
+          signUpStatus = <div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div>     
+          
         return(
+           
              <div>      
                <nav class="navbar navbar-default navbar-fixed-top">
         
@@ -24,36 +37,32 @@ class Signup extends Component {
         </div>
     </nav>
                 <div className='logincontainer'>
-                    {if(this.props.loginStatus==='failure'){
-
-                    }
-                    }
-                {this.props.loginStatus==='failure'?<div id='invalidLogin'><p><font color="red">Email id already exists!</font></p></div>:<div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div>}               
+                {signUpStatus}
                     <form>
                     <h2><b>Create your account</b></h2>
                 <div className="form-row">
     <div className="form-group col-md-6">
-    <label for="fname">First name</label>
-      <input type="text" class="form-control" id="fname" name="fname" onChange = {this.props.valueChangeHandler} placeholder="First name" required/>
+    <label for="cust_fname">First name</label>
+      <input type="text" class="form-control" id="cust_fname" name="cust_fname" onChange = {this.props.valueChangeHandler} placeholder="First name" required/>
     </div>
 
     <div className="form-group col-md-6">
-    <label for="lname">Last name</label>
-      <input type="text" class="form-control" id="lname" name="lname" onChange = {this.props.valueChangeHandler} placeholder="Last name"  required/>
+    <label for="cust_lname">Last name</label>
+      <input type="text" class="form-control" id="cust_lname" name="cust_lname" onChange = {this.props.valueChangeHandler} placeholder="Last name"  required/>
     </div>
 </div>
       <div className="form-group">
-          <label for="email">Email address</label>
-    <input type="email" className="form-control" id="email" name="email" onChange = {this.props.valueChangeHandler} aria-describedby="emailHelp" placeholder="Enter email" required/>
+          <label for="cust_email">Email address</label>
+    <input type="email" className="form-control" id="cust_email" name="cust_email" onChange = {this.props.valueChangeHandler} aria-describedby="emailHelp" placeholder="Enter email" required/>
           </div>      
 
           <div className="form-group">
-          <label for="password">Password</label>
-      <input type="password" className="form-control" id="pass" name="pass" onChange = {this.props.valueChangeHandler} placeholder="Password" required/>
+          <label for="cust_pass">Password</label>
+      <input type="password" className="form-control" id="cust_pass" name="cust_pass" onChange = {this.props.valueChangeHandler} placeholder="Password" required/>
           </div>  
          
           </form>
-          <button type="submit" onClick = {()=>this.props.signUp(this.dataSignup)} className="btn btn-primary">Create your account</button>
+          <button type="submit" onClick = {()=>this.props.signUp(this.getDataSignup())} className="btn btn-primary">Create your account</button>
           <br></br>
           <p id='account'><font>Have an account? <a href='login'>Sign in</a></font></p>
           <p class="u-text-center caption"><span>By creating your Grubhub account, you agree to the</span> <a href="/legal/terms-of-use" target="_blank" rel="noopener">Terms of Use</a> <span>and</span> <a href="/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
@@ -65,10 +74,10 @@ class Signup extends Component {
 
 const mapState = (store) =>{
     return{
-      email:store.email,
-      pass:store.pass,
-      fname:store.fname,
-      lname:store.lname,
+        cust_email:store.cust_email,
+        cust_pass:store.cust_pass,
+       cust_fname:store.cust_fname,
+       cust_lname:store.cust_lname,
       loginStatus:store.loginStatus
     }
   }

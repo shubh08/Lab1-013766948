@@ -1,18 +1,23 @@
+const loadCustProfile =  require('./loadCustomerProfile');
+
 const updateUser = (req, res, connPool) =>{
-    console.log('updated the user info!!')
-    const{cust_name,cust_email,cust_number,cust_image,cust_id} = req.body;
+    console.log('Inside the updated the user info call!!')
+    console.log('Update user request body',req.body);
+    const{fname,lname,email,number,image,id} = req.body;
     connPool.getConnection((error,conn)=>{
-    let queryGetStatus = 'update customer_info set cust_name=?,cust_email=?,cust_number=?,cust_image=? where cust_id = ?';
-    conn.query(queryGetStatus,[cust_name,cust_email,cust_number,cust_image,cust_id],(error,resultgetStatus)=>{
+    let updateQuery = 'update customer_info set cust_fname=?,cust_lname=?,cust_email=?,cust_number=?,cust_image=? where cust_id = ?';
+    conn.query(updateQuery,[fname,lname,email,number,image,id],(error,resultgetStatus)=>{
 
         if(resultgetStatus)
         {
-           
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
+           console.log('Updated the user profile!!')
+
+           loadCustProfile.loadCustProfile(req,res,connPool);
+            // res.writeHead(200, {
+            //     'Content-Type': 'application/json'
+            // });
             
-            res.end(JSON.stringify(req.body));
+            // res.end(JSON.stringify({status:"success"}));
             
         }
 

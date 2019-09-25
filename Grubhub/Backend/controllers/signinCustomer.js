@@ -27,10 +27,13 @@ const signinCust = (req, res, connPool, bcrypt) =>{
                              if(status)
                              {
                                  console.log('Login Success!')
+                                 res.cookie('cust_id',result[0].cust_id , { maxAge: 900000, httpOnly: false, path: '/' });
                                  res.writeHead(200, {
                                      'Content-Type': 'application/json'
                                  });
                                  const response = result[0];
+                                 
+                                 //req.session.user = user;
                                  response.type = 'customer';
                                  res.end(JSON.stringify(response));
 
@@ -41,7 +44,7 @@ const signinCust = (req, res, connPool, bcrypt) =>{
                                      'Content-Type': 'application/json'
                                  });
                                  
-                                 res.end('Password Incorrect');
+                                 res.end(JSON.stringify({status:"failure"}));
                              }
                          });
 

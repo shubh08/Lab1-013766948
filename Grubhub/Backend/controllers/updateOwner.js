@@ -1,20 +1,5 @@
 
 
-
-//  "owner_id": 2,
-//  "name": "shubhRest",
-//  "email": "shubhRest@xyz",
-//  "owner_hash": "$2b$10$M2OOK3vdKgJKsEwQCJVB4.qnIDQvb2AtY.nmkEWYfiMKKOPEWUA1i",
-//  "image": null,
-//  "number": null,
-//  "restaurant_id": 1,
-//  "rest_name": "delhi",
-//  "rest_zipcode": "411032",
-//  "rest_image": null,
-//  "rest_cuisine": null,
-//  "type": "owner"
-
-
 const updateOwner = (req, res, connPool)=>{
 
     const{name,email,number,image,restaurant_id,owner_id,rest_name,rest_zipcode,rest_image,rest_cuisine} = req.body;

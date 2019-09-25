@@ -1,15 +1,16 @@
 const registerOwn = (req, res, connPool, bcrypt)=>{
     const saltRounds = 10;
-    const {name,email,pass,rest_name,rest_zipcode} = req.body;
+    const {fname,lname,email,pass,restname,zip} = req.body;
+    
     let owner_id = '';
     connPool.getConnection((error,conn)=>{
         let encryptPass='';
         console.log('Inside else');
 
-    let queryGetStatus = 'select * from  restaurant_owner_details where email = ?';
+    let queryGetStatus = 'select * from  restaurant_owner_details where owner_email = ?';
     console.log(queryGetStatus);
     conn.query(queryGetStatus,[email],(error,resultgetStatus)=>{
-
+        console.log('Restaturant fetched',resultgetStatus)
         if(resultgetStatus.length>0)
         {   console.log('restaurnat is there!!');
             conn.release();
@@ -17,7 +18,7 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                 'Content-Type': 'application/json'
             });
             
-            res.end('Email ID already exists!');
+            res.end(JSON.stringify({status:"failure"}));
            
             
         }
@@ -27,9 +28,10 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                 console.log('Inside bcrypt');
                 encryptPass = hash;
                 console.log('Hash Values',hash);
-                let queryTest = 'insert into restaurant_owner_details(name,email,owner_hash) values(?, ?, ?)';
+                let queryTest = 'insert into restaurant_owner_details(owner_fname,owner_lname,owner_email,owner_hash) values(?, ?, ?, ?)';
+               
                 console.log('Query value',queryTest);
-            conn.query(queryTest,[name,email,encryptPass],(error,res)=>{
+            conn.query(queryTest,[fname,lname,email,encryptPass],(error,res)=>{
                 if(error)
                 {
                     throw error;
@@ -39,7 +41,7 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                     owner_id = res.insertId;  
                     console.log('Owner ID',owner_id);
                     let queryTest = 'insert into restaurant(rest_name,rest_zipcode,owner_id) values(?, ?, ?)';
-                    conn.query(queryTest,[rest_name,rest_zipcode,owner_id],(error,res)=>{
+                    conn.query(queryTest,[restname,zip,owner_id],(error,res)=>{
                         if(error)
                         {
                             throw error;
@@ -57,7 +59,7 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                 'Content-Type': 'application/json'
             });
             
-            res.end('Restaurant SuccessfulSignup ');
+            res.end(JSON.stringify({status:"success"}));
         }
 
     })

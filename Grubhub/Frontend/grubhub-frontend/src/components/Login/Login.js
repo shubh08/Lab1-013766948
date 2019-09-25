@@ -8,6 +8,14 @@ import './login.css';
 import * as actions from '../actions/actions'
 
 class Login extends Component {
+  getDataSignup = ()=>{
+
+    return {
+        email: this.props.cust_email,
+        pass: this.props.cust_pass,
+        type:'customer'
+    }
+}
 
     render(){
       let redirectVar= null;
@@ -30,16 +38,16 @@ class Login extends Component {
                 <form>
                     <h3><b>Sign in with your Grubhub account</b></h3>
   <div className="form-group">
-    <label for="email">Email address</label>
-    <input type="email" className="form-control" id="email" name="email" onChange = {this.props.valueChangeHandler} placeholder="Enter email"/>
+    <label for="cust_email">Email address</label>
+    <input type="email" className="form-control" id="cust_email" name="cust_email" onChange = {this.props.valueChangeHandler} placeholder="Enter email"/>
   </div>
   <div className="form-group">
-    <label for="pass">Password</label>
-    <input type="password" className="form-control" id="pass" name="pass" placeholder="Password" onChange = {this.props.valueChangeHandler}/>
+    <label for="cust_pass">Password</label>
+    <input type="password" className="form-control" id="cust_pass" name="cust_pass" placeholder="Password" onChange = {this.props.valueChangeHandler}/>
   </div>
 </form>
 
-<button onClick = {()=>this.props.submitLogin(this.props.email,this.props.pass)} className="btn btn-danger">Sign in</button>
+<button onClick = {()=>this.props.submitLogin(this.getDataSignup())} className="btn btn-danger">Sign in</button>
 <p id='account'><font><a href='signup'><b>Create your account</b></a></font></p>
                 
                 </div>
@@ -51,8 +59,8 @@ class Login extends Component {
 
 const mapState = (store) =>{
   return{
-    email:store.email,
-    pass:store.pass,
+    cust_email:store.cust_email,
+    cust_pass:store.cust_pass,
     loginStatus:store.loginStatus
   }
 }
@@ -60,7 +68,7 @@ const mapState = (store) =>{
 const mapDispach = (dispach) =>{
 return{
   valueChangeHandler:(e) => dispach(actions.valueMapper(e)),
-  submitLogin:(email,pass)=>dispach(actions.login(email,pass))
+  submitLogin:(data)=>dispach(actions.login(data))
   // decAge:() => dispach({type:'Agedo'})
 }
 }

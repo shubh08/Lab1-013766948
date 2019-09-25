@@ -1,6 +1,6 @@
 const registerCust = (req, res, connPool, bcrypt) =>{
     const saltRounds = 10;
-    const {name,email,pass} = req.body;
+    const {fname,lname,email,pass} = req.body;
 
 connPool.getConnection((error,conn)=>{
     let encryptPass='';
@@ -25,9 +25,10 @@ connPool.getConnection((error,conn)=>{
                 encryptPass = hash;
                 console.log('encrypt',encryptPass);
                 console.log('Type of',typeof encryptPass,encryptPass.length);
-                let queryTest = 'insert into customer_info(cust_name,cust_email,cust_hash) values (?, ?, ?)';
+                let queryTest = 'insert into customer_info(cust_fname,cust_lname,cust_email,cust_hash) values (?, ?, ?, ?)';
+                //let name = fname+' '+lname
                 console.log(queryTest);
-                conn.query(queryTest,[name,email,encryptPass],(error,resultsignup)=>{
+                conn.query(queryTest,[fname,lname,email,encryptPass],(error,resultsignup)=>{
                     if(error)
                     {
                         throw error;

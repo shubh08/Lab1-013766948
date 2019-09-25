@@ -13,6 +13,7 @@ const signinCustomer = require('./controllers/signinCustomer');
 const signinOwner = require('./controllers/signinOwner');
 const updateOwner = require('./controllers/updateOwner');
 const updateUser = require('./controllers/updateUser');
+const loadCustProfile =  require('./controllers/loadCustomerProfile');
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -136,7 +137,7 @@ app.post('/signin',(req,res)=>{
 
 // User Update
 app.post('/update',(req,res)=>{
-    console.log('Inside uodate info..',req.body);
+    console.log('Inside update info..',req.body);
     if(req.body.type==='customer')
     {
         updateUser.updateUser(req, res, connPool)
@@ -146,9 +147,21 @@ app.post('/update',(req,res)=>{
         updateOwner.updateOwner(req, res, connPool);
     }
 
+})  
+
+//Load Profile Data
+app.post('/loadProfileData',(req,res)=>{
+    console.log('Inside loading of profile info..',req.body);
+    if(req.body.type==='customer')
+    {
+        loadCustProfile.loadCustProfile(req, res, connPool)
+    }
+    
+    else{
+        loadCustProfile.loadCustProfile(req, res, connPool);
+    }
+
 })
-
-
 
 //Route to get All Books when user visits the Home Page
 app.get('/home', function (req, res) {
