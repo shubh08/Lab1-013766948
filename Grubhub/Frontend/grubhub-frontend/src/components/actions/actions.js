@@ -128,7 +128,9 @@ export const login = (data) =>{
                     dispatch(loginAsync({
                         authFlag : true,
                         loginStatus:'success',
-                        objLogin:response.data
+                        ...response.data,
+                        
+                        
                     }))
                 }
                

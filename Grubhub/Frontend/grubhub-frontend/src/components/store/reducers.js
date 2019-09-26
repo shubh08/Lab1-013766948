@@ -21,6 +21,10 @@ const initialState = {
     rest_zipcode:"",
     rest_image:"",
     rest_cuisine:"",
+    rest_name_holder:"",
+    rest_zipcode_holder:"",
+    rest_image_holder:"",
+    rest_cuisine_holder:"",
     type:"",
     authFlag : false,
     loginStatus:"",
@@ -28,6 +32,12 @@ const initialState = {
     cust_lname_holder:"",
     cust_email_holder:"",
     cust_number_holder:"",
+    cust_image_holder:"",
+    owner_fname_holder:"",
+    owner_lname_holder:"",
+    owner_email_holder:"",
+    owner_number_holder:"",
+
     objLogin:{
        
     },

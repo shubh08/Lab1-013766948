@@ -4,6 +4,15 @@ const updateUser = (req, res, connPool) =>{
     console.log('Inside the updated the user info call!!')
     console.log('Update user request body',req.body);
     const{fname,lname,email,number,image,id} = req.body;
+    // if(email==req.cookie('cust_id'))
+    // {
+
+    // }
+
+    // else{
+
+
+    // }
     connPool.getConnection((error,conn)=>{
     let updateQuery = 'update customer_info set cust_fname=?,cust_lname=?,cust_email=?,cust_number=?,cust_image=? where cust_id = ?';
     conn.query(updateQuery,[fname,lname,email,number,image,id],(error,resultgetStatus)=>{
@@ -26,6 +35,8 @@ const updateUser = (req, res, connPool) =>{
         }
 
     })
+
+    conn.release();
 
 })
 

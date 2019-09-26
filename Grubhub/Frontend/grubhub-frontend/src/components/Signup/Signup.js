@@ -33,7 +33,7 @@ class Signup extends Component {
                <nav class="navbar navbar-default navbar-fixed-top">
         
         <div class="navbar-header">
-          <a class="navbar-brand navbar-left logo" href="login"><p><font color="red"><b>GRUBHUB</b></font></p></a>
+          <a class="navbar-brand navbar-left logo" href="/"><p><font color="red"><b>GRUBHUB</b></font></p></a>
         </div>
     </nav>
                 <div className='logincontainer'>

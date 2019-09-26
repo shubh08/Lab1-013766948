@@ -13,6 +13,8 @@ import ManageRestaurantMenu from './Grubhub/ManageRestaurant/ManageRestaurantMen
 import NavbarInitial from './NavbarInitial/NavbarInitial';
 import OwnerLogin from './Login/OwnerLogin';
 import OwnerSignup from './Signup/OwnerSignup';
+import ManageRestaurant from './Grubhub/ManageRestaurant/ManageRestaurant';
+import OwnerProfile from './OwnerProfile/OwnerProfile';
 // import Home from './Home/Home';
 // import Delete from './Delete/Delete';
 // import Create from './Create/Create';
@@ -28,7 +30,10 @@ class Root extends Component {
                 <Route path="/restaurant/home" component={NavbarOwner}/>  
                 {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  
                 <Route path="/restaurant/manage/manageOrder" component={ManageRestaurantOrder}/>  */}
-                <Route path="/restaurant/manage/manageMenu" component={ManageRestaurantMenu}/> 
+                <Route path="/restaurant/manage" component={ManageRestaurant}/> 
+                
+                <Route path="/restaurant/manage/profile" component={OwnerProfile}/>  
+                <Route path="/restaurant/manage/menu" component={ManageRestaurantMenu}/> 
 
                 <Route exact path="/" component={NavbarInitial}></Route>
                 <Route exact path="/buyer/login" component={Login}></Route>

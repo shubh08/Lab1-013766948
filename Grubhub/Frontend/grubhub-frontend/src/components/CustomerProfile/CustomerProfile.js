@@ -78,17 +78,38 @@ changeNumber=()=>{
     div.style.display = "none";
   }
 
+}  
+
+changeImage=()=>{
+  let div = document.getElementById("imageEdit");
+  console.log('Inside number',div);
+if (div.style.display === "none") {
+  div.style.display = "block";
+} 
+
+else {
+  div.style.display = "none";
 }
+
+} 
+
+
 
     render(){
 
      
+      let redirectVar = null;
+    
 
       console.log('Customer Email',this.props.cust_email)
       if (this.props.cust_email==="") {
         
         return <div />
     }
+    if(!cookie.load('cust_id')){
+      redirectVar = <Redirect to= "/"/>
+  }
+
 
     console.log('Profile Object Name',this.props.cust_name);
 
@@ -99,7 +120,9 @@ changeNumber=()=>{
     let defaultNumber = this.props.cust_number;
     
 
-        return(  <div class="content">
+        return( <div>
+          {redirectVar}
+          <div class="content">
         <h3><b>Your Profile</b></h3>
         <br/>
         <div >
@@ -179,7 +202,41 @@ changeNumber=()=>{
             </div>
 
         </div>
-      </div>)
+        <br/>
+      
+      <hr/>
+        <div>
+        <div class='imageEdit'>
+            <div>
+                Customer Image
+                <br/>
+               {/* <b> {this.props.number===""?this.props.objLogin.cust_number:this.props.number} </b> */}
+               {/* <b>{this.props.cust_image}</b> */}
+               <img src={this.props.cust_image===null?this.props.cust_image_holder:this.props.cust_image}/>
+                <a onClick={this.changeImage} class='customALign'>Edit</a>
+            </div>
+        </div>
+
+        <div id='imageEdit' style={{display : 'none'}}>
+            <form>
+  <div class="form-group">
+    <label for="cust_image_holder">File Upload</label>
+    
+                <input type="file" name="cust_image_holder" onChange= {this.props.valueChangeObserver} />
+                
+  </div>
+ 
+</form>
+<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("number"))}>Update Image</button>
+  &nbsp;  &nbsp;  &nbsp;
+  <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeNumber}>Close</button>
+            </div>
+
+        </div>
+
+
+
+      </div> </div> )
        
 
     }
@@ -201,6 +258,8 @@ const mapState = (store) =>{
       cust_lname_holder:store.cust_lname_holder,
       cust_number_holder:store.cust_number_holder,
       cust_email_holder:store.cust_email_holder,
+      cust_image_holder:store.cust_image_holder,
+      cust_image:store.cust_image,
       loginStatus:store.loginStatus,
       objLogin:store.objLogin,
       updateSuccess:store.updateSuccess

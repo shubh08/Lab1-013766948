@@ -28,7 +28,9 @@ const signinCust = (req, res, connPool, bcrypt) =>{
                              {
                                  console.log('Login Success!')
                                  res.cookie('cust_id',result[0].cust_id , { maxAge: 900000, httpOnly: false, path: '/' });
+                                 res.cookie('cust_email',result[0].cust_email , { maxAge: 900000, httpOnly: false, path: '/' });
                                  res.writeHead(200, {
+
                                      'Content-Type': 'application/json'
                                  });
                                  const response = result[0];

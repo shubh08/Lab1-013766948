@@ -7,6 +7,7 @@ let cookieParser = require('cookie-parser');
 let cors = require('cors');
 let sqlCon = require('mysql');
 const bcrypt = require('bcrypt');
+const multer = require("multer");
 const registerOwner = require('./controllers/registerOwner');
 const registerCustomer = require('./controllers/registerCustomer');
 const signinCustomer = require('./controllers/signinCustomer');
@@ -14,6 +15,8 @@ const signinOwner = require('./controllers/signinOwner');
 const updateOwner = require('./controllers/updateOwner');
 const updateUser = require('./controllers/updateUser');
 const loadCustProfile =  require('./controllers/loadCustomerProfile');
+const loadOwnerProfile =  require('./controllers/loadOwnerProfile');
+
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -29,6 +32,8 @@ let connPool = sqlCon.createPool({
     database:'grubhub'
 });
 
+
+app.use(cookieParser());
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -158,10 +163,12 @@ app.post('/loadProfileData',(req,res)=>{
     }
     
     else{
-        loadCustProfile.loadCustProfile(req, res, connPool);
+        loadOwnerProfile.loadOwnerProfile(req, res, connPool);
     }
 
 })
+
+//loadOwnerProfile
 
 //Route to get All Books when user visits the Home Page
 app.get('/home', function (req, res) {

@@ -19,9 +19,14 @@ class Login extends Component {
 
     render(){
       let redirectVar= null;
-      if(this.props.loginStatus==='success'){
-        redirectVar = <Redirect to= "/customer"/>
-    }
+      
+      if(cookie.load('cust_id')){
+          redirectVar = <Redirect to= "/customer/manageCustomer/customerProfile"/>
+      }
+      
+    // if(this.props.loginStatus==='success'){
+    //     redirectVar = <Redirect to= "/customer"/>
+    // }
     console.log('Redirected',redirectVar);
         return(
              <div >   
@@ -29,13 +34,13 @@ class Login extends Component {
                <nav class="navbar navbar-default navbar-fixed-top">
         
         <div class="navbar-header">
-          <a class="navbar-brand navbar-left logo" href="login"><p><font color="red"><b>GRUBHUB</b></font></p></a>
+          <a class="navbar-brand navbar-left logo" href="/"><p><font color="red"><b>GRUBHUB</b></font></p></a>
         </div>
       
     </nav>
                 <div className='logincontainer'>
            {this.props.loginStatus==='failure' && <div id='invalidLogin'><p><font color="red">Hey Stranger! We don't recognize that login. Spell check your info and try again!</font></p></div>}   
-                <form>
+                <form >
                     <h3><b>Sign in with your Grubhub account</b></h3>
   <div className="form-group">
     <label for="cust_email">Email address</label>
@@ -45,9 +50,11 @@ class Login extends Component {
     <label for="cust_pass">Password</label>
     <input type="password" className="form-control" id="cust_pass" name="cust_pass" placeholder="Password" onChange = {this.props.valueChangeHandler}/>
   </div>
+ 
 </form>
 
-<button onClick = {()=>this.props.submitLogin(this.getDataSignup())} className="btn btn-danger">Sign in</button>
+<button type="submit" onClick = {()=>this.props.submitLogin(this.getDataSignup())} className="btn btn-danger">Sign in</button>
+
 <p id='account'><font><a href='signup'><b>Create your account</b></a></font></p>
                 
                 </div>

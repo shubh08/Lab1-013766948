@@ -1,8 +1,11 @@
+
+
 const loadCustProfile = (req, res, connPool) =>{
     const{id} = req.body;
-
+ //   console.log('Customer Cookie Value',req.cookie('cust_id'))
     connPool.getConnection((error,conn)=>{
         // encryptPass = hash;
+
          console.log('Inside customer load data!');
          let loadProfileQuery = 'select * from  customer_info where cust_id = ?';
          console.log(loadProfileQuery);
