@@ -1,31 +1,12 @@
 
-.sidebar {
-    margin-top: 50px;
-    padding: 0;
-    width: 200px;
-    background-color:white;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-    border-right: 1px solid black;
-  }
-  
-  .sidebar a {
-    display: block;
-    color: blue;
-    padding: 16px;
-    text-decoration: none;
-  }
-   
-  .sidebar a.active {
-    background-color: white;
-    color: black;
-  }
-  
-  
-  div.content {
+div.content {
     
-    margin-left: 200px;
-    padding: 50px 16px;
-    height: 1000px;
-  }
+  margin-left: 200px;
+  padding: 50px 16px;
+  height: 1000px;
+}
+
+a.customALign{
+  text-align: right;
+  float: right;
+}

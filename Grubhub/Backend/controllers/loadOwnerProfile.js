@@ -4,7 +4,7 @@ const loadOwnerProfile = (req, res, connPool) =>{
 
     connPool.getConnection((error,conn)=>{
         // encryptPass = hash;
-         console.log('Inside customer load data!');
+         console.log('Inside load owner profile!');
          let loadProfileQuery = 'select * from restaurant_owner_details d, restaurant r where d.owner_id=? and d.owner_id=r.owner_id;';
          console.log(loadProfileQuery);
          conn.query(loadProfileQuery,[id],(error,result)=>{

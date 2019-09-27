@@ -15,8 +15,9 @@ const signinOwner = require('./controllers/signinOwner');
 const updateOwner = require('./controllers/updateOwner');
 const updateUser = require('./controllers/updateUser');
 const loadCustProfile =  require('./controllers/loadCustomerProfile');
-const loadOwnerProfile =  require('./controllers/loadOwnerProfile');
-
+const loadOwnerProfile =  require('./controllers/loadOwnerProfile'); 
+const loadSectionData =  require('./controllers/loadSectionData'); 
+const addSection   =  require('./controllers/addSection'); 
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -168,7 +169,27 @@ app.post('/loadProfileData',(req,res)=>{
 
 })
 
-//loadOwnerProfile
+//loadSectionData
+
+
+app.post('/loadSectionData',(req,res)=>{
+
+    console.log('Inside load section data here',req.body)
+
+        loadSectionData.loadSectionData(req, res, connPool);
+    
+})
+
+//addSection
+
+app.post('/addSection',(req,res)=>{
+
+    addSection.addSection(req, res, connPool);
+
+})
+
+
+
 
 //Route to get All Books when user visits the Home Page
 app.get('/home', function (req, res) {
