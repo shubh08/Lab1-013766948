@@ -38,6 +38,7 @@ const initialState = {
     owner_email_holder:"",
     owner_number_holder:"",
     sectionData:[],
+    menuData:[],
     objLogin:{
        
     },
@@ -98,6 +99,16 @@ const reducer = (state=initialState,action)=>{
     console.log('Object returned after loading section data', action.value)
     const objret= Object.assign({}, state, action.value);
     console.log('Final object here after loading sectiojn data',objret);
+    return objret;  
+   } 
+
+   
+   if(action.type==='LoadMenu')
+   {
+    
+    console.log('Object returned after loading menu data', action.value)
+    const objret= Object.assign({}, state, action.value);
+    console.log('Final object here after loading menu data',objret);
     return objret;  
    } 
    return state

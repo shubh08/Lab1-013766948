@@ -37,6 +37,8 @@ class NavbarOwner extends Component {
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {this.props.owner_fname} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><Link to="/restaurant/manage/profile">Manage Account</Link></li> 
+                  <li><Link to="/restaurant/manageSection">Manage Restaurant</Link></li> 
+                  <li><Link to="/restaurant/manageOrders">Manage Orders</Link></li> 
                   <li><Link to="/" onClick = {this.handleLogout}>Logout</Link></li>
               </ul>
             </li>

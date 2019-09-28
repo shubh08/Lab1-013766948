@@ -7,9 +7,10 @@ import {Redirect} from 'react-router';
 
 import {connect} from 'react-redux';
 import * as actions from '../../actions/actions';
+import './ManageSection.css'
 
 
-class ManageRestaurant extends Component{
+class ManageSection extends Component{
 
 reDirect = ''
   constructor(){
@@ -51,17 +52,14 @@ addSection=()=>{
 
 }
 
-viewSection = (id)=>{
-console.log('Inside section view',id);
-{/* <Redirect to={{
-  pathname: '/restaurant/manage/menu',
-  state: { id: id }
-}}/> */}
+viewSection = (data)=>{
+console.log('Inside section view',data.section_id);
 
 console.log('here clicked');
 let reDirect= <Redirect to={{
     pathname: '/restaurant/manage/menu',
-    state: { sectionid: id }
+    state: { sectionid: data.section_id ,
+    sectionname:data.section_name}
 }}
 />
 
@@ -73,9 +71,12 @@ console.log(this.reDirect)
 
 }
 
-deleteSection=(i)=>{
+deleteSection=(data)=>{
+    let restaurant_id = cookie.load('restaurant_id')
 
-console.log('Section id',i)
+console.log('Inside section id',data.section_id)
+
+this.props.deleteSectionData({deleteid:data.section_id,id:restaurant_id});
 
 }
 
@@ -100,28 +101,45 @@ let restaurant_id = cookie.load('restaurant_id')
     let sectionArray = this.props.sectionData.map((sectionItem)=>{
 
       console.log('hereererer',sectionItem)
-      return  <li class="list-group-item">{sectionItem.section_name}<button class='btn btn-primary'><i class="fa fa-edit"></i></button>
+      return  <li class="list-group-item"><h3>{sectionItem.section_name}</h3>
+                <h4>{sectionItem.section_description}</h4>
+      
           &nbsp;  
-          <button class="btn btn-danger" style={{display: 'inline-block'}} ><i class="fa fa-trash"></i></button>
-
-          <button class="btn btn-danger" style={{display: 'inline-block'}} onClick = {()=>this.viewSection(sectionItem.section_id)}  ><i class="fa fa-eye"></i></button>
+         
+         
+        <div id="outer">
+        <div class="inner"><button class='btn btn-primary btnFormat' onClick = {()=>this.updateSection(sectionItem)}><i class="fa fa-edit"></i></button></div>
+        <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.deleteSection(sectionItem)}  ><i class="fa fa-trash"></i></button></div>
+        <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.viewSection(sectionItem)}  ><i class="fa fa-eye"></i></button></div>
+    </div> 
+          
           
           </li>
 
   });
 
      
-        return( <div>
+        return( <div class="section">
             {redirectVar}
+
+
+
            {this.state.reDirect}
-            <div class="sidebar">
-           
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Sectionssd</button> 
-            <ul class="list-group">
+            
+           <h1 align="center">Manage Sections</h1>
+
+           <div class="col-md-4 text-center"> 
+           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Section</button> 
+</div>
+   
+            <ul class="list-group sectionul">
+
+  <br/> <hr/>
+
           {sectionArray}
 
     </ul>
-            </div> 
+            
 
     <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog .modal-lg ">
@@ -176,10 +194,11 @@ const mapState = (store) =>{
   const mapDispach = (dispach) =>{
   return{
     loadSectionData:(data)=>dispach(actions.loadSectionData(data)),
-    addSectionData:(data)=>dispach(actions.addSectionData(data)),
+    addSectionData:(data)=>dispach(actions.addSectionData(data)), 
+    deleteSectionData:(data)=>dispach(actions.deleteSectionData(data))
     // decAge:() => dispach({type:'Agedo'})
   }
   }
   
   
-export default connect(mapState,mapDispach) (ManageRestaurant);
+export default connect(mapState,mapDispach) (ManageSection);

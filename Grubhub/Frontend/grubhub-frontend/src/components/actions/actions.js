@@ -196,7 +196,7 @@ export const signUp = (data) =>{
     }
 }
 
-
+//load Section Data
 export const loadSectionDataAsync = (obj) =>{
     console.log('Here in Async',obj);
     return {type:'LoadSection',value:obj};
@@ -287,6 +287,215 @@ export const addSectionData = (data) =>{
         }).catch(error => {
             console.log('Inside exception throw!!')
             dispatch(addSectionDataAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+//loadMenuData
+
+export const loadMenuDataAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const loadMenuData = (data) =>{
+    console.log('Preapring for Launch Load Menu Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/loadMenu',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(loadMenuDataAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(loadMenuDataAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(loadMenuDataAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+//addMenuData
+
+
+export const addMenuDataAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const addMenuData = (data) =>{
+    console.log('Preapring for Launch Add Menu Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/addMenu',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(addMenuDataAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(addMenuDataAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(addMenuDataAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+ 
+
+//delete Section   
+
+
+
+export const deleteSectionDataAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const deleteSectionData = (data) =>{
+    console.log('Preapring for Launch Delete Section Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/deleteSection',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(deleteSectionDataAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(deleteSectionDataAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        sectionData:response.data.sectionData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(deleteSectionDataAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+//delete Menu
+ 
+
+
+
+export const deleteMenuAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const deleteMenu = (data) =>{
+    console.log('Preapring for Launch Delete Menu Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/deleteMenu',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(deleteMenuAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(deleteMenuAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(deleteMenuAsync({
                 authFlag : false,
                 loginStatus:'failure'
             }))

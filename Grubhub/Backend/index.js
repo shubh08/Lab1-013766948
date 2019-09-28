@@ -18,6 +18,10 @@ const loadCustProfile =  require('./controllers/loadCustomerProfile');
 const loadOwnerProfile =  require('./controllers/loadOwnerProfile'); 
 const loadSectionData =  require('./controllers/loadSectionData'); 
 const addSection   =  require('./controllers/addSection'); 
+const addMenu   =  require('./controllers/addMenu'); 
+const loadMenu   =  require('./controllers/loadMenu'); //deleteSection
+const deleteMenu = require('./controllers/deleteMenu'); 
+const deleteSection = require('./controllers/deleteSection'); 
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -188,7 +192,53 @@ app.post('/addSection',(req,res)=>{
 
 })
 
+//delete Section
 
+app.post('/deleteSection', function (req, res) {
+    console.log("Inside delete function");
+
+    deleteSection.deleteSection(req, res, connPool)
+    // if(!req.session.user){
+    //     console.log('Inside hererereresndsjdksajkdjaskd');
+    //     res.writeHead(404, {"Content-Type": "text/plain"});
+    //     res.write("404 Not Found\n");
+    //     res.end();
+    //     return;
+    // }
+
+
+    // res.writeHead(200, {
+    //     'Content-Type': 'application/json'
+    // });
+    // console.log('Req Object', req.body);
+    // let responseObj = { resValue: deleteFromBooks(req.params.id) };
+    // console.log("Books : ", JSON.stringify({ responseObj }));
+    // res.end(JSON.stringify(responseObj));
+});
+
+
+//addMenu  addMenu
+app.post('/addMenu',(req,res)=>{
+
+    addMenu.addMenu(req, res, connPool);
+
+})
+
+
+//loadMenu
+app.post('/loadMenu',(req,res)=>{
+
+    loadMenu.loadMenu(req, res, connPool);
+
+})
+
+//Delete Menu
+
+app.post('/deleteMenu',(req,res)=>{
+
+    deleteMenu.deleteMenu(req, res, connPool);
+
+})
 
 
 //Route to get All Books when user visits the Home Page

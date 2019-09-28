@@ -9,13 +9,14 @@ import PastOrder from './Grubhub/CustomerOrders/PastOrder';
 import UpcomingOrder from './Grubhub/CustomerOrders/UpcomingOrder';
 import CustomerProfile from './CustomerProfile/CustomerProfile';
 import NavbarOwner from './NavbarOwner/NavbarOwner';
-import ManageRestaurantMenu from './Grubhub/ManageRestaurant/ManageRestaurantMenu';
+
 import NavbarInitial from './NavbarInitial/NavbarInitial';
 import OwnerLogin from './Login/OwnerLogin';
 import OwnerSignup from './Signup/OwnerSignup';
 import ManageRestaurant from './Grubhub/ManageRestaurant/ManageRestaurant';
 import OwnerProfile from './OwnerProfile/OwnerProfile';
 import ManageMenu from './Grubhub/ManageRestaurant/ManageMenu';
+import ManageSection from './Grubhub/ManageRestaurant/ManageSection';
 // import Home from './Home/Home';
 // import Delete from './Delete/Delete';
 // import Create from './Create/Create';
@@ -31,12 +32,16 @@ class Root extends Component {
                 <Route path="/restaurant/home" component={NavbarOwner}/>  
                 {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  
                 <Route path="/restaurant/manage/manageOrder" component={ManageRestaurantOrder}/>  */}
-                <Route path="/restaurant/manage" component={ManageRestaurant}/> 
+                {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  */}
 
-                <Route path="/restaurant/manage/menu" component={ManageMenu}/>  
+                {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  */}
+
+                <Route path="/restaurant/manageSection" component={ManageSection}/>   
+                <Route path="/restaurant/manageOrders" component={ManageOrder}/> 
+                <Route path="/restaurant/manage/menu" component={ManageMenu}/>    
                 
                 <Route path="/restaurant/manage/profile" component={OwnerProfile}/>  
-                <Route path="/restaurant/manage/menu" component={ManageRestaurantMenu}/> 
+              
 
                 <Route exact path="/" component={NavbarInitial}></Route>
                 <Route exact path="/buyer/login" component={Login}></Route>
