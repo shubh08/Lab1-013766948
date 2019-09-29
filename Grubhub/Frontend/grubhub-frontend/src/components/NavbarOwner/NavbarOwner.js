@@ -32,13 +32,21 @@ class NavbarOwner extends Component {
           </div>
         
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-left">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi {this.props.owner_fname} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                   <li><Link to="/restaurant/manage/profile">Manage Account</Link></li> 
                   <li><Link to="/restaurant/manageSection">Manage Restaurant</Link></li> 
-                  <li><Link to="/restaurant/manageOrders">Manage Orders</Link></li> 
+                  {/* <li class="dropdown-submenu"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Orders</a>
+                  <ul class="dropdown-menu">
+                          <li><Link to="/restaurant/manageOrders">Manage Past Orders</Link> </li>
+                          <li><Link to="/restaurant/manageOrders">Manage Current Orders</Link></li>
+                         
+                        </ul>
+                  </li>  */}
+                  <li><Link to="/restaurant/managePastOrders">Manage Past Orders</Link> </li>
+                  <li><Link to="/restaurant/manageCurrentOrders">Manage Current Orders</Link></li>
                   <li><Link to="/" onClick = {this.handleLogout}>Logout</Link></li>
               </ul>
             </li>

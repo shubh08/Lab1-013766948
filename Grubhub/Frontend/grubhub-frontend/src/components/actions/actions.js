@@ -296,6 +296,54 @@ export const addSectionData = (data) =>{
     }
 }
 
+
+
+//updateSection   updateSectionData
+
+export const updateSectionData = (data) =>{
+    console.log('Preapring for Launch Update Section Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/updateSection',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(addSectionDataAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(addSectionDataAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        sectionData:response.data.sectionData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(addSectionDataAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+
 //loadMenuData
 
 export const loadMenuDataAsync = (obj) =>{
@@ -398,6 +446,59 @@ export const addMenuData = (data) =>{
     }
 }
  
+
+//update Menu   
+
+export const updateMenuAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const updateMenu = (data) =>{
+    console.log('Preapring for Launch Update Menu Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/updateMenu',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(updateMenuAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(updateMenuAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(updateMenuAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+
 
 //delete Section   
 
@@ -504,3 +605,110 @@ export const deleteMenu = (data) =>{
         
     }
 }
+
+
+//Search Dishes
+
+export const searchMenuAsync =(obj)=>{
+    console.log('Here in Async',obj);
+    return {type:'LoadSearch',value:obj};
+}
+
+
+
+
+export const searchMenu = (data) =>{
+    console.log('Preapring for Search Menu Data',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/searchDishes',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(searchMenuAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(searchMenuAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(searchMenuAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+ 
+
+//update Menu   
+
+export const searchDishesAsync = (obj) =>{
+    console.log('Here in Async',obj);
+    return {type:'LoadMenu',value:obj};
+}
+
+
+export const searchDishes = (data) =>{
+    console.log('Preapring for Launch Search Dishes',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/searchDishes',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(updateMenuAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(updateMenuAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(updateMenuAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+

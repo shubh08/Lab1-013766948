@@ -1,15 +1,15 @@
 
 const loadSectionData =  require('./loadSectionData'); 
 
-const addSection = (req, res, connPool) =>{
-   console.log('Inside add section ', req.body)
-    const {section_name,id,section_description} = req.body;
+const updateSection = (req, res, connPool) =>{
+   console.log('Inside update section ', req.body)
+    const {section_name,updateid,section_description} = req.body;
 
 connPool.getConnection((error,conn)=>{
     let encryptPass='';
-    let queryAddSection = 'insert into section(section_name,restaurant_id,section_description) values (?, ?, ?)';
+    let queryAddSection = 'update section set section_name=?,section_description=? where section_id=?';
     console.log(queryAddSection);
-    conn.query(queryAddSection,[section_name,id,section_description],(error,resultgetStatus)=>{
+    conn.query(queryAddSection,[section_name,section_description,updateid],(error,resultgetStatus)=>{
 
         if(error)
         {
@@ -24,7 +24,7 @@ connPool.getConnection((error,conn)=>{
             
         }
 
-            
+        
     })
    
    
@@ -34,5 +34,5 @@ connPool.getConnection((error,conn)=>{
 }
 
 module.exports = {
-    addSection: addSection
+    updateSection: updateSection
   };

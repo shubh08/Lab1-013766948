@@ -39,6 +39,7 @@ const initialState = {
     owner_number_holder:"",
     sectionData:[],
     menuData:[],
+    searchData:[],
     objLogin:{
        
     },

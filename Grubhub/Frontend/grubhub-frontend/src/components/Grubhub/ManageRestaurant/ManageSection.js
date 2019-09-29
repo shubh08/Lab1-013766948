@@ -20,7 +20,10 @@ reDirect = ''
     this.state={
         sectionName:"",
         sectionDescription:"",
-        reDirect:""
+        reDirect:"",
+        updateAction:false,
+        sectionid:"",
+        restaurant_id:""
         }
         
 }
@@ -42,20 +45,62 @@ sectionItem = (id)=>{
 
 }
 
+closeForm=()=>{
+    console.log("Here in the close form");
+    this.setState({
+        sectionName:"",
+        sectionDescription:"",
+        updateAction:false,
+        sectionid: ""
+    
+    })
+
+}
+
+
+updateForm = (data)=>{
+console.log('Here in the update form1111111111111111',data)
+this.setState({
+    sectionName:data.section_name,
+    sectionDescription:data.section_description,
+    updateAction:true,
+    sectionid: data.section_id
+
+})
+console.log('State Values',this.state)
+}
+
+updateSection=()=>{
+
+let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,updateid:this.state.sectionid,id:this.state.restaurant_id}
+ 
+console.log('Inside Update section',data);
+
+this.setState({
+    sectionName:"",
+    sectionDescription:"",
+    updateAction:false,
+    sectionid:""
+
+})
+    this.props.updateSectionData(data)
+  
+
+}
+
 
 addSection=()=>{
 
-  let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,id:this.props.restaurant_id}
-  console.log('here after getting input!!!',data);
+  let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,id:this.state.restaurant_id}
+ 
+  console.log('Data for addition',data);
   this.props.addSectionData(data)
 
 
 }
 
 viewSection = (data)=>{
-console.log('Inside section view',data.section_id);
 
-console.log('here clicked');
 let reDirect= <Redirect to={{
     pathname: '/restaurant/manage/menu',
     state: { sectionid: data.section_id ,
@@ -66,7 +111,7 @@ let reDirect= <Redirect to={{
 this.setState({
 reDirect:reDirect
 })
-console.log(this.reDirect) 
+
 
 
 }
@@ -74,7 +119,7 @@ console.log(this.reDirect)
 deleteSection=(data)=>{
     let restaurant_id = cookie.load('restaurant_id')
 
-console.log('Inside section id',data.section_id)
+
 
 this.props.deleteSectionData({deleteid:data.section_id,id:restaurant_id});
 
@@ -89,26 +134,36 @@ let restaurant_id = cookie.load('restaurant_id')
  
  }
 
+ componentDidMount(){
+
+    let restaurant_id = cookie.load('restaurant_id')
+    
+    this.setState({
+        restaurant_id:restaurant_id
+    })
+     
+     }
+
     
     render(){
         let redirectVar = null;
       if(!cookie.load('owner_id')){
-        console.log('loggin out owner id');
+        
           redirectVar = <Redirect to= "/"/>
       }
 
         
     let sectionArray = this.props.sectionData.map((sectionItem)=>{
 
-      console.log('hereererer',sectionItem)
+      
       return  <li class="list-group-item"><h3>{sectionItem.section_name}</h3>
-                <h4>{sectionItem.section_description}</h4>
+                <p>{sectionItem.section_description}</p>
       
           &nbsp;  
+          {/* <button class='btn btn-primary btnFormat' onClick = {()=>this.updateSection(sectionItem)}> */}
          
-         
-        <div id="outer">
-        <div class="inner"><button class='btn btn-primary btnFormat' onClick = {()=>this.updateSection(sectionItem)}><i class="fa fa-edit"></i></button></div>
+        <div id="outer"> 
+        <div class="inner"><button  class="btn btn-primary btnFormat" data-toggle="modal" data-target="#myModalUpdate"onClick = {()=>this.updateForm(sectionItem)} ><i class="fa fa-edit"></i></button></div>
         <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.deleteSection(sectionItem)}  ><i class="fa fa-trash"></i></button></div>
         <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.viewSection(sectionItem)}  ><i class="fa fa-eye"></i></button></div>
     </div> 
@@ -142,32 +197,63 @@ let restaurant_id = cookie.load('restaurant_id')
             
 
     <div class="modal fade" id="myModal" role="dialog">
+       
     <div class="modal-dialog .modal-lg ">
             <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" onCLick={this.closeForm} data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Section Details</h4>
         </div>
         <div class="modal-body">
          <form>
          <div class="form-group">
     <label for="sectionName">Enter Section Name</label>
-    <input type="text" class="form-control" id="sectionName" name="sectionName" onChange={this.valueChangedHandler} />
+    <input type="text" class="form-control" id="sectionName" name="sectionName"  onChange={this.valueChangedHandler} />
   </div>
   <div class="form-group">
     <label for="sectionDescription">Enter Section Description</label>
-    <input type="text" class="form-control" id="sectionDescription" name="sectionDescription" onChange={this.valueChangedHandler} />
+    <input type="text" class="form-control" id="sectionDescription" name="sectionDescription"  onChange={this.valueChangedHandler} />
   </div>
  
          </form>
         </div>
         <button type="submit" onClick={this.addSection} class="btn btn-primary" data-dismiss="modal">Add Section</button>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
         </div>
       </div>
       </div>
       </div>  
+
+      
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+       
+       <div class="modal-dialog .modal-lg ">
+               <div class="modal-content">
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">Update Section Details</h4>
+           </div>
+           <div class="modal-body">
+            <form>
+            <div class="form-group">
+       <label for="sectionName">Enter Section Name</label>
+       <input type="text" class="form-control" id="sectionName" name="sectionName" defaultValue={this.state.sectionName} onChange={this.valueChangedHandler} />
+     </div>
+     <div class="form-group">
+       <label for="sectionDescription">Enter Section Description</label>
+       <input type="text" class="form-control" id="sectionDescription" name="sectionDescription" defaultValue={this.state.sectionDescription} onChange={this.valueChangedHandler} />
+     </div>
+    
+            </form>
+           </div>
+           <button type="submit" onClick={this.updateSection} class="btn btn-primary" data-dismiss="modal">Update Section</button>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+           </div>
+         </div>
+         </div>
+         </div> 
            
             </div>)
        
@@ -178,7 +264,7 @@ let restaurant_id = cookie.load('restaurant_id')
 }
 
 const mapState = (store) =>{
-  console.log('Manage Restaurant Props',store)
+  console.log('Manage Section Props',store)
     return{
   
       restaurant_id:store.restaurant_id,
@@ -195,7 +281,8 @@ const mapState = (store) =>{
   return{
     loadSectionData:(data)=>dispach(actions.loadSectionData(data)),
     addSectionData:(data)=>dispach(actions.addSectionData(data)), 
-    deleteSectionData:(data)=>dispach(actions.deleteSectionData(data))
+    deleteSectionData:(data)=>dispach(actions.deleteSectionData(data)),
+    updateSectionData:(data)=>dispach(actions.updateSectionData(data))  
     // decAge:() => dispach({type:'Agedo'})
   }
   }

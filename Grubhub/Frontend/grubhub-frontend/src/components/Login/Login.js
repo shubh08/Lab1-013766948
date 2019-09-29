@@ -21,7 +21,7 @@ class Login extends Component {
       let redirectVar= null;
       
       if(cookie.load('cust_id')){
-          redirectVar = <Redirect to= "/customer/manageCustomer/customerProfile"/>
+          redirectVar = <Redirect to= "/customer/home"/>
       }
       
     // if(this.props.loginStatus==='success'){

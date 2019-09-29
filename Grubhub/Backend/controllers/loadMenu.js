@@ -25,7 +25,7 @@ const loadMenu = (req, res, connPool) =>{
                 res.writeHead(200, {
                                  'Content-Type': 'application/json'
                              });
-                             console.log('Result Section Data',result[0])
+                            
                              if(menuArr.length==0)
                             {
                                 res.end(JSON.stringify({status:"success",

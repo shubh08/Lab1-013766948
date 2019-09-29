@@ -22,6 +22,9 @@ const addMenu   =  require('./controllers/addMenu');
 const loadMenu   =  require('./controllers/loadMenu'); //deleteSection
 const deleteMenu = require('./controllers/deleteMenu'); 
 const deleteSection = require('./controllers/deleteSection'); 
+const updateSection = require('./controllers/updateSection');  
+const updateMenu = require('./controllers/updateMenu'); 
+const searchDishes = require('./controllers/searchDishes'); 
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -192,6 +195,15 @@ app.post('/addSection',(req,res)=>{
 
 })
 
+
+//updateSection
+
+app.post('/updateSection',(req,res)=>{
+
+    updateSection.updateSection(req, res, connPool);
+
+})
+
 //delete Section
 
 app.post('/deleteSection', function (req, res) {
@@ -237,6 +249,23 @@ app.post('/loadMenu',(req,res)=>{
 app.post('/deleteMenu',(req,res)=>{
 
     deleteMenu.deleteMenu(req, res, connPool);
+
+})
+
+
+//updateMenu
+
+app.post('/updateMenu',(req,res)=>{
+
+    updateMenu.updateMenu(req, res, connPool);
+
+})
+
+//searchDishes
+
+app.post('/searchDishes',(req,res)=>{
+
+    searchDishes.searchDishes(req, res, connPool);
 
 })
 

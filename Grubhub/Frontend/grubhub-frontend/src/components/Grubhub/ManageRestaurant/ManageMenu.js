@@ -20,7 +20,8 @@ this.state= {
     menu_name:"",
     menu_price:"",
     menu_image:"",
-    menu_description:""
+    menu_description:"",
+    menu_id:""
 }
 
 }
@@ -32,12 +33,60 @@ valueChangedHandler=(event)=>{
     this.setState({
         [name]:value
     });
+
+    console.log('State status',this.state)
   }
   
 
+  updateForm=(data)=>{
+
+    console.log('Here in the update form',data)
+this.setState({
+    menu_name:data.menu_name,
+    menu_description:data.menu_description,
+    menu_price:data.menu_price,
+    menu_image:data.menu_image,
+    updateAction:true,
+    menu_id:data.menu_id
+})
+console.log('State Values',this.state)
+
+  }
+
+
+  updateMenu=()=>{
+    let sectid = this.props.location.state.sectionid;
+
+    let data = {menu_name:this.state.menu_name,menu_description:this.state.menu_description,menu_price:this.state.menu_price,menu_image:this.state.menu_image,updateid:this.state.menu_id,id:sectid}
+ 
+    console.log('Inside Update section',data);
+    
+    this.setState({
+        sectionName:"",
+        sectionDescription:"",
+        updateAction:false,
+        sectionid:""
+    
+    })
+        this.props.updateMenu(data)
+  }
+
+
+  updateAdd=()=>{
+   this.setState({
+    menu_name:"",
+    menu_price:"",
+    menu_image:"",
+    menu_description:""
+   }) 
+
+  }
 addMenu=()=>{
 
-    let data = {menu_name:this.state.menu_name,menu_description:this.state.menu_description,menu_price:this.state.menu_price,menu_image:this.state.menu_image,id:this.state.sectionid}
+    let sectid = this.props.location.state.sectionid;
+    let sectionname = this.props.location.state.sectionname;
+
+    let data = {menu_name:this.state.menu_name,menu_description:this.state.menu_description,menu_price:this.state.menu_price,menu_image:this.state.menu_image,id:sectid}
     console.log('here after getting input!!!',data);
     this.props.addMenuData(data)
   
@@ -94,7 +143,7 @@ this.props.loadMenuData({id:sectid});
         
         let menuArray = this.props.menuData.map((Menu)=>{
 
-            console.log('hereererer',Menu)
+            
             return  <li class="list-group-item"><h3>{Menu.menu_name}</h3>  &nbsp; <p>{Menu.menu_price}</p>
             
             &nbsp; <p>{Menu.menu_description}</p>
@@ -102,7 +151,7 @@ this.props.loadMenuData({id:sectid});
                
                
               <div id="outer">
-              <div class="inner"><button class='btn btn-primary btnFormat'><i class="fa fa-edit"></i></button></div>
+              <div class="inner"><button class='btn btn-primary btnFormat' data-toggle="modal" data-target="#myModalUpdate" onClick={()=>this.updateForm(Menu)} ><i class="fa fa-edit"></i></button></div>
               <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.deleteMenu(Menu)} ><i class="fa fa-trash"></i></button></div>
               <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.viewSection(Menu)}  ><i class="fa fa-eye"></i></button></div>
           </div> 
@@ -134,7 +183,7 @@ this.props.loadMenuData({id:sectid});
     <h1>Manage Section: {this.state.sectionname} </h1>
 
     <div class="col-md-4 text-center"> 
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Menu</button> 
+           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={this.updateAdd}>Add Menu</button> 
 </div>
    
             <ul class="list-group sectionul">
@@ -180,6 +229,43 @@ this.props.loadMenuData({id:sectid});
       </div>
       </div>
       </div>  
+
+       
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+    <div class="modal-dialog .modal-lg ">
+            <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Update Menu Details</h4>
+        </div>
+        <div class="modal-body">
+         <form>
+         <div class="form-group">
+    <label for="menu_name">Enter Menu Name</label>
+    <input type="text" class="form-control" id="menu_name" name="menu_name" defaultValue={this.state.menu_name} onChange={this.valueChangedHandler} />
+  </div>
+  <div class="form-group">
+    <label for="menu_description">Enter Menu Description</label>
+    <input type="text" class="form-control" id="menu_description" name="menu_description" defaultValue={this.state.menu_description} onChange={this.valueChangedHandler} />
+  </div>
+
+  <div class="form-group">
+    <label for="menu_price">Enter Menu Price</label>
+    <input type="text" class="form-control" id="menu_price" name="menu_price" defaultValue={this.state.menu_price} onChange={this.valueChangedHandler} />
+  </div>
+  <div class="form-group">
+    <label for="menu_image">Enter Menu Image</label>
+    <input type="text" class="form-control" id="menu_image" name="menu_image" defaultValue={this.state.menu_image} onChange={this.valueChangedHandler} />
+  </div>
+         </form>
+        </div>
+        <button type="submit" onClick={this.updateMenu} class="btn btn-primary" data-dismiss="modal">Update Menu</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+      </div> 
       </div>
       </div>)
        
@@ -210,7 +296,8 @@ const mapState = (store) =>{
     valueChangeObserver:(e) => dispach(actions.valueMapper(e)),
     loadMenuData:(data)=>dispach(actions.loadMenuData(data)),
     addMenuData:(data)=>dispach(actions.addMenuData(data)),
-    deleteMenu:(data)=>dispach(actions.deleteMenu(data))
+    deleteMenu:(data)=>dispach(actions.deleteMenu(data)),  
+    updateMenu:(data)=>dispach(actions.updateMenu(data))
 
     // decAge:() => dispach({type:'Agedo'})  deleteMenu
   }

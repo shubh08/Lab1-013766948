@@ -15,8 +15,6 @@ const loadSectionData = (req, res, connPool) =>{
 
              else{
                 console.log('Load Section data',result)
-                console.log('Result of the load Section data is 11',result[0])
-                console.log('Result of the load Section data is 22',result[1])
 
                 console.log('Creating section object array')
                 var sectionArr = []
