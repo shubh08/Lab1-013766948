@@ -16,7 +16,8 @@ class CustomerHome extends Component{
       super();
   
       this.state={
-          searchBox:""
+          searchBox:"",
+          reDirect:""
           }
           
   }
@@ -33,90 +34,22 @@ class CustomerHome extends Component{
   
   
   search = ()=>{
-  
-    this.props.searchDishes({searchTerm:this.state.searchBox});
-  
-  }
-  
-  closeForm=()=>{
-      console.log("Here in the close form");
-      this.setState({
-          sectionName:"",
-          sectionDescription:"",
-          updateAction:false,
-          sectionid: ""
-      
-      })
-  
-  }
-  
-  
-  updateForm = (data)=>{
-  console.log('Here in the update form1111111111111111',data)
-  this.setState({
-      sectionName:data.section_name,
-      sectionDescription:data.section_description,
-      updateAction:true,
-      sectionid: data.section_id
-  
-  })
-  console.log('State Values',this.state)
-  }
-  
-  updateSection=()=>{
-  
-  let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,updateid:this.state.sectionid,id:this.state.restaurant_id}
-   
-  console.log('Inside Update section',data);
-  
-  this.setState({
-      sectionName:"",
-      sectionDescription:"",
-      updateAction:false,
-      sectionid:""
-  
-  })
-      this.props.updateSectionData(data)
+    let reDirect= <Redirect to={{
+        pathname: '/customer/search',
+        state: { searchBox: this.state.searchBox 
+        }
+    }}
+    />
+    
+    this.setState({
+    reDirect:reDirect
+    })
     
   
   }
   
   
-  addSection=()=>{
   
-    let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,id:this.state.restaurant_id}
-   
-    console.log('Data for addition',data);
-    this.props.addSectionData(data)
-  
-  
-  }
-  
-  viewSection = (data)=>{
-  
-  let reDirect= <Redirect to={{
-      pathname: '/restaurant/manage/menu',
-      state: { sectionid: data.section_id ,
-      sectionname:data.section_name}
-  }}
-  />
-  
-  this.setState({
-  reDirect:reDirect
-  })
-  
-  
-  
-  }
-  
-  deleteSection=(data)=>{
-      let restaurant_id = cookie.load('restaurant_id')
-  
-  
-  
-  this.props.deleteSectionData({deleteid:data.section_id,id:restaurant_id});
-  
-  }
   
   
     componentWillMount(){
@@ -167,7 +100,9 @@ class CustomerHome extends Component{
     // });
   
        
-          return( <div class="section">
+          return( <div>
+                {this.state.reDirect}
+              <div class="section">
               
               <div class="logSection">
 
@@ -181,6 +116,7 @@ class CustomerHome extends Component{
                     <button class="btn btn-primary" onClick={this.search}>Search</button>
                 </div>
 
+              </div>
               </div>
               </div>)
          
@@ -197,17 +133,6 @@ const mapState = (store) =>{
   console.log('CustomerProfile Props',store)
     return{
   
-      cust_email:store.cust_email,
-      cust_pass:store.cust_pass,
-      cust_fname:store.cust_fname,
-      cust_lname:store.cust_lname,
-      cust_number:store.cust_number,
-      cust_fname_holder:store.cust_fname_holder,
-      cust_lname_holder:store.cust_lname_holder,
-      cust_number_holder:store.cust_number_holder,
-      cust_email_holder:store.cust_email_holder,
-      cust_image_holder:store.cust_image_holder,
-      cust_image:store.cust_image,
       loginStatus:store.loginStatus,
       objLogin:store.objLogin,
       updateSuccess:store.updateSuccess

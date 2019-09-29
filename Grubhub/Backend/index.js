@@ -24,7 +24,8 @@ const deleteMenu = require('./controllers/deleteMenu');
 const deleteSection = require('./controllers/deleteSection'); 
 const updateSection = require('./controllers/updateSection');  
 const updateMenu = require('./controllers/updateMenu'); 
-const searchDishes = require('./controllers/searchDishes'); 
+const searchDishes = require('./controllers/searchDishes');
+const loadRestaurant = require('./controllers/loadRestaurant');   loadRestaurant
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -268,6 +269,17 @@ app.post('/searchDishes',(req,res)=>{
     searchDishes.searchDishes(req, res, connPool);
 
 })
+
+
+//Load Restaurant  
+
+app.post('/loadRestaurant',(req,res)=>{
+
+    loadRestaurant.loadRestaurant(req, res, connPool);
+
+})
+
+
 
 
 //Route to get All Books when user visits the Home Page

@@ -607,64 +607,13 @@ export const deleteMenu = (data) =>{
 }
 
 
-//Search Dishes
-
-export const searchMenuAsync =(obj)=>{
-    console.log('Here in Async',obj);
-    return {type:'LoadSearch',value:obj};
-}
-
-
-
-
-export const searchMenu = (data) =>{
-    console.log('Preapring for Search Menu Data',data)
-    return dispatch =>{
-    //set the with credentials to true
-    axios.defaults.withCredentials = true;
-    
-    //make a post request with the user data
-    axios.post('http://localhost:3001/searchDishes',data)
-        .then(response => {
-            console.log("Status Code : ",response.data);
-            if(response.status === 200){
-                if(response.data.status==="failure")
-                {
-                    dispatch(searchMenuAsync({
-                        authFlag : false,
-                        loginStatus:'failure'
-                    })) 
-                }
-               
-                else{
-                    dispatch(searchMenuAsync({
-                        authFlag : true,
-                        loginStatus:'success',
-                        menuData:response.data.menuData
-                    }))
-                }
-               
-            }else{
-               
-            }
-        }).catch(error => {
-            console.log('Inside exception throw!!')
-            dispatch(searchMenuAsync({
-                authFlag : false,
-                loginStatus:'failure'
-            }))
-            
-        })
-        
-    }
-}
  
 
-//update Menu   
+//Search Dishes  
 
 export const searchDishesAsync = (obj) =>{
-    console.log('Here in Async',obj);
-    return {type:'LoadMenu',value:obj};
+    console.log('Here in Search Async',obj);
+    return {type:'LoadSearch',value:obj};
 }
 
 
@@ -681,17 +630,17 @@ export const searchDishes = (data) =>{
             if(response.status === 200){
                 if(response.data.status==="failure")
                 {
-                    dispatch(updateMenuAsync({
+                    dispatch(searchDishesAsync({
                         authFlag : false,
                         loginStatus:'failure'
                     })) 
                 }
                
                 else{
-                    dispatch(updateMenuAsync({
+                    dispatch(searchDishesAsync({
                         authFlag : true,
                         loginStatus:'success',
-                        menuData:response.data.menuData
+                        searchData:response.data.searchData
                     }))
                 }
                
@@ -700,7 +649,7 @@ export const searchDishes = (data) =>{
             }
         }).catch(error => {
             console.log('Inside exception throw!!')
-            dispatch(updateMenuAsync({
+            dispatch(searchDishesAsync({
                 authFlag : false,
                 loginStatus:'failure'
             }))
@@ -710,5 +659,53 @@ export const searchDishes = (data) =>{
     }
 }
 
+//Load Restaurant   
 
 
+export const loadRestaurantAsync = (obj) =>{
+    console.log('Here in Load Restaurant Async',obj);
+    return {type:'LoadRest',value:obj};
+}
+
+
+export const loadRestaurant = (data) =>{
+    console.log('Preparing for Load Restaurant',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/loadRestaurant',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(loadRestaurantAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(loadRestaurantAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        restaurantData:response.data.restaurantData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(loadRestaurantAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}

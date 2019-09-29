@@ -21,6 +21,8 @@ import ManageOrders from './ManageOrders/ManagePastOrders';
 import ManagePastOrders from './ManageOrders/ManagePastOrders';
 import ManageCurrentOrders from './ManageOrders/ManageCurrentOrders';
 import CustomerHome from './CustomerHome/CustomerHome';
+import CustomerSearch from './CustomerSearch/CustomerSearch';
+import LoadRestaurant from './LoadRestaurant/LoadRestaurant';
 // import Home from './Home/Home';
 // import Delete from './Delete/Delete';
 // import Create from './Create/Create';
@@ -58,6 +60,8 @@ class Root extends Component {
                 
                  <Route path="/customer" component={Navbar}/>
                  <Route path="/customer/home" component={CustomerHome}/>
+                 <Route path="/customer/search" component={CustomerSearch}/> 
+                 <Route path="/customer/loadRestaurant" component={LoadRestaurant}/>  
 {/*                 
                 <Route path="/customer/login" component={Login}/>
                 <Route path="/customer/create-account" component={Signup}/> */}

@@ -2,8 +2,8 @@
 
 const searchDishes = (req, res, connPool) =>{
     console.log('Request Body',req.body);
-    const{searchItem} = req.body;
-    console.log('Search Term is ',searchItem)
+    const{searchTerm} = req.body;
+    console.log('Search Term is ',searchTerm)
  //   console.log('Customer Cookie Value',req.cookie('cust_id'))
     connPool.getConnection((error,conn)=>{
         // encryptPass = hash;
@@ -11,7 +11,7 @@ const searchDishes = (req, res, connPool) =>{
          console.log('Inside search Dishes!');
          let loadProfileQuery = `select r.rest_name,r.rest_image,r.rest_cuisine,r.restaurant_id from restaurant r, section s, menu m where r.restaurant_id=s.restaurant_id and s.section_id=m.section_id and ? LIKE CONCAT('%', m.menu_name, '%');` ;
          console.log(loadProfileQuery);
-         conn.query(loadProfileQuery,[searchItem],(error,result)=>{
+         conn.query(loadProfileQuery,[searchTerm],(error,result)=>{
              if(error)
              {
                  throw error;

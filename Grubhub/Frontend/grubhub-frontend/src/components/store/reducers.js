@@ -40,6 +40,7 @@ const initialState = {
     sectionData:[],
     menuData:[],
     searchData:[],
+    restaurantData:[],
     objLogin:{
        
     },
@@ -111,7 +112,27 @@ const reducer = (state=initialState,action)=>{
     const objret= Object.assign({}, state, action.value);
     console.log('Final object here after loading menu data',objret);
     return objret;  
+   }    
+
+   if(action.type==='LoadSearch')
+   {
+    
+    console.log('Object returned after loading search Results is', action.value)
+    const objret= Object.assign({}, state, action.value);
+    console.log('Final object here after loading searching results is',objret);
+    return objret;  
+   }  
+   if(action.type==='LoadRest')
+   {
+    
+    console.log('Object returned after loading restaurant Results is', action.value)
+    const objret= Object.assign({}, state, action.value);
+    console.log('Final object here after loading restaurant results is',objret);
+    return objret;  
    } 
+   
+   
+   
    return state
     }
     
