@@ -38,6 +38,7 @@ viewSection = (data)=>{
     let reDirect= <Redirect to={{
         pathname: '/customer/loadRestaurant',
         state: { restaurantid: data.restaurant_id ,
+            rest_name:data.rest_name
         }
     }}
     />
