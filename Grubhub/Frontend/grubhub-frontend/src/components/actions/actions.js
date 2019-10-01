@@ -709,3 +709,159 @@ export const loadRestaurant = (data) =>{
         
     }
 }
+
+//order
+
+
+export const orderAsync = (obj) =>{
+    console.log('Here in order Async',obj);
+    return {type:'Order',value:obj};
+}
+
+
+export const order = (data) =>{
+    console.log('Preparing for order ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/order',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(orderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(orderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        restaurantData:response.data.restaurantData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(orderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+// Load Past Orders
+
+
+
+export const pastorderAsync = (obj) =>{
+    console.log('Here in order Async',obj);
+    return {type:'PastOrder',value:obj};
+}
+
+
+export const pastorder = (data) =>{
+    console.log('Preparing for order ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/pastorder',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(pastorderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(pastorderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        restaurantData:response.data.restaurantData
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(pastorderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+//Load upComingOrder
+
+
+
+export const upComingOrderAsync = (obj) =>{
+    console.log('Here in order Async',obj);
+    return {type:'UpcomingOrder',value:obj};
+}
+
+
+export const upComingOrder = (data) =>{
+    console.log('Preparing for order ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/upComingOrder',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(upComingOrderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(upComingOrderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        upComingOrderData:response.data.dataOrder
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(upComingOrderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}

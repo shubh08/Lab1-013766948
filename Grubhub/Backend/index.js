@@ -25,7 +25,11 @@ const deleteSection = require('./controllers/deleteSection');
 const updateSection = require('./controllers/updateSection');  
 const updateMenu = require('./controllers/updateMenu'); 
 const searchDishes = require('./controllers/searchDishes');
-const loadRestaurant = require('./controllers/loadRestaurant');   loadRestaurant
+const loadRestaurant = require('./controllers/loadRestaurant');  
+const order = require('./controllers/order');  
+const pastorder = require('./controllers/pastorder');    //upComingOrder
+const upComingOrder = require('./controllers/upComingOrder');
+
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
@@ -279,8 +283,27 @@ app.post('/loadRestaurant',(req,res)=>{
 
 })
 
+//order
+app.post('/order',(req,res)=>{
 
+    order.order(req, res, connPool);
 
+})
+
+// Load Past Data
+
+app.post('/pastorder',(req,res)=>{
+
+    pastorder.pastorder(req, res, connPool);
+
+})
+
+// Load Upcoming order  upComingOrder
+app.post('/upComingOrder',(req,res)=>{
+
+    upComingOrder.upComingOrder(req, res, connPool);
+
+})
 
 //Route to get All Books when user visits the Home Page
 app.get('/home', function (req, res) {

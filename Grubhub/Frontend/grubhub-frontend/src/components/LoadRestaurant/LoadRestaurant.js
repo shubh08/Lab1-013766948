@@ -17,7 +17,8 @@ class LoadRestaurant extends Component {
         this.state = {
             restaurantid: "",
             rest_name: "",
-            orderData:[]
+            orderData:[],
+            total:0
         }
 
     }
@@ -30,9 +31,13 @@ class LoadRestaurant extends Component {
            {console.log('here matched')
             orderDatatemp[i].quantity += 1
             document.getElementById(item.menu_id).innerHTML = orderDatatemp[i].quantity
+            // let total = this.state.total
+            // total+=parseInt(item.menu_price, 10)
             this.setState({
-                orderData:orderDatatemp
+                orderData:orderDatatemp,
+               
             });
+            
             console.log(this.state);
             return
            }
@@ -40,10 +45,15 @@ class LoadRestaurant extends Component {
 
        document.getElementById(item.menu_id).innerHTML = 1
        orderDatatemp.push({...item,quantity:1})
+        // let total = this.state.total
+        // console.log('Price is'+parseInt(item.menu_price, 10));
+        // total+=parseInt(item.menu_price, 10)
+        // console.log('total is',total)
        this.setState({
-        orderData:orderDatatemp
+        orderData:orderDatatemp,
+       
     });
-       console.log(this.state);
+       console.log('This statte',this.state);
     }
 
 
@@ -86,12 +96,12 @@ class LoadRestaurant extends Component {
     }
 
 
-    orderNow = ()=>{
-
+    orderNow = (total)=>{
+        let cust_id = cookie.load('cust_id')
         let orderItems = this.state.orderData;
-       // let metaData = {cust_id:}
-
-       //this.props.order()
+       let restaurant_id = this.state.restaurantid;
+       let status="New"
+       this.props.order({cust_id:cust_id,orderItems:orderItems,restaurant_id:restaurant_id,status:status,rest_name:this.state.rest_name});
     }
 
     viewSection = (data) => {
@@ -141,6 +151,9 @@ class LoadRestaurant extends Component {
         let lunchmenu = null
         let appetizersmenu = null
         let currentOrders = null
+        let total = 0;
+
+
         
         let redirectVar = null
         if (!cookie.load('owner_id')) {
@@ -216,12 +229,15 @@ class LoadRestaurant extends Component {
         //     })
         currentOrders = this.state.orderData.map((searchItem)=>{
   
+            total += ( parseInt(searchItem.menu_price, 10) * parseInt(searchItem.quantity, 10))
         
-            return  <li class="list-group-item list-group-item-success">{searchItem.quantity} Number of <i>{searchItem.menu_name}</i> </li>
+            return  <li class="list-group-item list-group-item-success">{searchItem.quantity} Number of <i>{searchItem.menu_name}</i> <p align="right">Price  = {searchItem.quantity}*${searchItem.menu_price} </p> </li>
       
         });
         currentOrders = <div class="container"> <br></br> <br></br> <h2>You have selected following Items:</h2> <ul class="list-group">{currentOrders}</ul>
-        <button class="btn btn-primary" onClick={this.orderNow}>Order Now!!</button> <button class="btn btn-danger">Cancel</button>
+        <br></br>
+        <h3>Your total is: ${total}</h3>
+        <button class="btn btn-primary" onClick={()=>this.orderNow(total)}>Order Now!!</button> <button class="btn btn-danger">Cancel</button>
         </div>
         }
 
@@ -247,7 +263,7 @@ class LoadRestaurant extends Component {
 
 
 const mapState = (store) => {
-    console.log('CustomerProfile Props', store)
+    console.log('Load Restaurant Props', store)
     return {
 
         restaurantData: store.restaurantData,
@@ -262,7 +278,8 @@ const mapState = (store) => {
 const mapDispach = (dispach) => {
     return {
         loadProfileData: (data) => dispach(actions.loadProfileData(data)),
-        loadRestaurant: (data) => dispach(actions.loadRestaurant(data)),
+        order: (data) => dispach(actions.order(data)),  
+        loadRestaurant: (data) => dispach(actions.loadRestaurant(data))
         // decAge:() => dispach({type:'Agedo'})
     }
 }

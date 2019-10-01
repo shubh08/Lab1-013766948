@@ -8,7 +8,7 @@ const loadRestaurant = (req, res, connPool) =>{
          let loadRestaurant = 'select m.menu_id,m.menu_name,m.menu_price,m.menu_image,m.menu_description,s.section_id,s.section_name from menu m, restaurant r, section s where r.restaurant_id=s.restaurant_id and s.section_id = m.section_id and r.restaurant_id=?';
          console.log(loadRestaurant);
          conn.query(loadRestaurant,[id],(error,result)=>{
-             if(error)
+             if(error) 
              {
                  throw error;
              }

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import './ManageCustomer.css'
+import { Link } from 'react-router-dom';
+import cookie from 'react-cookies';
+import {Redirect} from 'react-router';
 
 class ManageCustomer extends Component{
 
@@ -10,8 +13,9 @@ class ManageCustomer extends Component{
         return( <div>
             <div class="sidebar">
               <a class="active" href="#home">Home</a>
-              <a href="/customer/manageCustomer/pastOrder">Past Orders</a>
-              <a href="/customer/manageCustomer/upcomingOrder">Upcoming Orders</a>
+              <Link to="/customer/manageCustomer/upcomingOrder">Upcoming Orders</Link>
+              {/* <a href="/customer/manageCustomer/pastOrder">Past Orders</a>
+              <a href="/customer/manageCustomer/upcomingOrder">Upcoming Orders</a> */}
               <a href="/customer/manageCustomer/customerProfile">Profile</a>
             </div>
             

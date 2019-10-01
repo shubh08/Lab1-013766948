@@ -41,6 +41,7 @@ const initialState = {
     menuData:[],
     searchData:[],
     restaurantData:[],
+    upComingOrderData:[],
     objLogin:{
        
     },
@@ -129,8 +130,15 @@ const reducer = (state=initialState,action)=>{
     const objret= Object.assign({}, state, action.value);
     console.log('Final object here after loading restaurant results is',objret);
     return objret;  
-   } 
-   
+   }   //UpcomingOrder
+   if(action.type==='UpcomingOrder')
+   {
+    
+    console.log('Object returned after loading upcoming order Results is', action.value)
+    const objret= Object.assign({}, state, action.value);
+    console.log('Final object here after loading upcoming order results is',objret);
+    return objret;  
+   }  
    
    
    return state
