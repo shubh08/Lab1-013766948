@@ -4,7 +4,7 @@ const upComingRestaurantOrder = (req, res, connPool) => {
     let resultOrder = {}
     connPool.getConnection((error, conn) => {
 
-        let loadPastOrderQuery = `select * from orders where restaurant_id=(select restaurant_id from restaurant where owner_id=?) and status='New'`;
+        let loadPastOrderQuery = `select * from orders where restaurant_id=(select restaurant_id from restaurant where owner_id=?)`;
         console.log(loadPastOrderQuery);
         conn.query(loadPastOrderQuery, [id], (error, resultOrder) => {
             if (error) {
@@ -18,7 +18,7 @@ const upComingRestaurantOrder = (req, res, connPool) => {
                      orderid.push(element.order_id)
                  });
                  let orderidArray = [orderid]
-                let getOrderDetails = 'select  c.cust_fname,c.cust_lname,o.order_id,o.status,oi.item_name,oi.item_price,oi.item_quantity,oi.order_total from customer_info c,orders o,orders_items oi where  o.cust_id=c.cust_id and o.order_id=oi.order_id and c.cust_id in (select o.cust_id from orders o where o.order_id in (?))';
+                let getOrderDetails = 'select  c.cust_fname,c.cust_lname,o.order_id,o.status,oi.item_name,oi.item_price,oi.item_quantity,oi.order_total from customer_info c,orders o,orders_items oi where  o.cust_id=c.cust_id and o.order_id=oi.order_id and c.cust_id in (select o.cust_id from orders o where o.order_id in (?)) order by o.order_id ';
                 console.log(getOrderDetails);
             
                 console.log('Final Items array',orderid)

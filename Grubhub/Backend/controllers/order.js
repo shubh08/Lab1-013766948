@@ -1,6 +1,6 @@
 
 
-const order = (req, res, connPool) =>{
+const order = (req, res, connPool) =>{ 
    console.log('Inside order Items section ', req.body)
     const {cust_id,restaurant_id,status,orderItems,rest_name,order_total} = req.body;
 

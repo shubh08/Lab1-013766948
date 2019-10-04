@@ -6,6 +6,8 @@ import * as actions from '../actions/actions';
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
 
+let searchArr = []
+
 
 class CustomerSearch extends Component{
 
@@ -17,12 +19,36 @@ class CustomerSearch extends Component{
   
       this.state={
           searchBox:"",
-          reDirect:""
+          reDirect:"",
+          searchTerm:null,
+          searchArray:[]
           
           }
           
   }
   
+
+  changeCuisine=(cuisine)=>{
+    this.setState({
+      searchTerm :cuisine
+    })
+    
+
+    // console.log('Search Array is',searchArr,'Items search term is',cuisine)
+    // console.log('Props store data is',this.props.searchData)
+    // searchArr = this.props.searchData.map((item)=>{
+    //   console.log('Item is ',item)
+    //   if(item.rest_cuisine===cuisine)
+    //   {
+    //     return item
+    //   }
+    // })
+
+    // this.setState({
+    // })
+
+    // console.log('Values in the array',searchArr)
+  }
   
   
   valueChangedHandler=(event)=>{
@@ -79,9 +105,30 @@ viewSection = (data)=>{
           
             redirectVar = <Redirect to= "/"/>
         }
-  
+        
+      searchArr = this.props.searchData;
+       console.log('Search Term is ',this.state.searchTerm) 
+      if(this.state.searchTerm){
+        searchArr = searchArr.filter(elem=>{
+          return elem.rest_cuisine==this.state.searchTerm
+        }
           
-      let searchArray = this.props.searchData.map((searchItem)=>{
+        )
+
+    //   searchArr = searchArr.map((item)=>{
+    //   console.log('Item is ',item)
+    //   if(item.rest_cuisine===this.state.searchTerm)
+    //   {
+    //     return item
+    //   }
+    // })
+
+
+      }
+      
+      console.log('Search array',searchArr)
+
+      let searchArray = searchArr.map((searchItem)=>{
   
         
         return  <li class="list-group-item"><h3>{searchItem.rest_name}</h3>
@@ -110,6 +157,18 @@ viewSection = (data)=>{
           
           
          <h2 align="center">Search Results for:"<b>{this.state.searchBox}</b>"</h2>
+         <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select Cuisine
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item"  onClick={()=>{this.changeCuisine('Indian')}}>Indian</a>
+    <a class="dropdown-item"  onClick={()=>{this.changeCuisine('Chinese')}}>Chinese</a>
+    <a class="dropdown-item"  onClick={()=>{this.changeCuisine('Mexican')}}>Mexican</a>
+    <a class="dropdown-item"  onClick={()=>{this.changeCuisine('Thai')}}>Thai</a>
+  </div>
+</div>
+         
 
          <div class="col-md-4 text-center"> 
 </div>

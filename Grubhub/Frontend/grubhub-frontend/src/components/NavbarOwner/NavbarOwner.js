@@ -45,7 +45,7 @@ class NavbarOwner extends Component {
                          
                         </ul>
                   </li>  */}
-                  <li><Link to="/restaurant/managePastOrders">Manage Past Orders</Link> </li>
+              
                   <li><Link to="/restaurant/manageCurrentOrders">Manage Current Orders</Link></li>
                   <li><Link to="/" onClick = {this.handleLogout}>Logout</Link></li>
               </ul>

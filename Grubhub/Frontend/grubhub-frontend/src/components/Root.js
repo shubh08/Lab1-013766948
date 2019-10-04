@@ -23,6 +23,7 @@ import ManageCurrentOrders from './ManageOrders/ManageCurrentOrders';
 import CustomerHome from './CustomerHome/CustomerHome';
 import CustomerSearch from './CustomerSearch/CustomerSearch';
 import LoadRestaurant from './LoadRestaurant/LoadRestaurant';
+import OrderSuccess from './Grubhub/CustomerOrders/OrderSuccess';
 // import Home from './Home/Home';
 // import Delete from './Delete/Delete';
 // import Create from './Create/Create';
@@ -68,6 +69,7 @@ class Root extends Component {
                 <Route path="/customer/manageCustomer" component={ManageCustomer}/>
                 <Route path="/customer/manageCustomer/pastOrder" component={PastOrder}/>
                 <Route path="/customer/manageCustomer/upcomingOrder" component={UpcomingOrder}/>
+                <Route path="/customer/OrderSuccess" component={OrderSuccess}/>
                 <Route path="/customer/manageCustomer/customerProfile" component={CustomerProfile}/>
 
                 {/* <Route path="/home" component={Home}/>

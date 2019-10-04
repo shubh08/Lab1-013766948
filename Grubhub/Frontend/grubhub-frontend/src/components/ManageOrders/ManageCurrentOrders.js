@@ -36,7 +36,7 @@ class ManageCurrentOrders extends Component{
 
      setPastView=()=>{
        this.setState({
-        pastOrderView:true
+        pastOrderView:!this.state.pastOrderView
        })
      }
 
@@ -59,28 +59,42 @@ class ManageCurrentOrders extends Component{
 
     console.log('Upcoming Orders::',this.props.upComingRestaurantOrderData)
     let orders =  this.props.upComingRestaurantOrderData.map((element)=>{
+      if(element.status!='Delivered') {
                
-  return <li class="list-group-item list-group-item-info">
-  
-  <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
-    
+  return <div>
+    <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
+   
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="tableh">Item Name</th>
+      <th class="tableh">Item Price</th>
+      <th class="tableh">Item Quantity</th>
+    </tr>
+  </thead>
+  <tbody> 
   {element.items.map((elem)=>{
-return <div>
-<p>Item Name: {elem.item_name}</p>
-<p>Item Price:{elem.item_price}</p>
-<p>Item Quantity:{elem.item_quantity}</p>
 
-<br></br><hr></hr>
-</div>
+    
+return  <tr>
+<td>{elem.item_name}</td>
+<td>{elem.item_price}</td>
+<td>{elem.item_quantity}</td>
+
+</tr>
   })}
   
-  Total : {element.order_total}
+</tbody>
+</table>
+
+Status:<font color="red">{element.status}</font>  
   <br></br>
-  Status:{element.status}  
-<br></br>
+  Total : <b>${element.order_total}</b>
+ <br></br>
+
 <form>
 <div class="form-group">
-<label for="inputState">State</label>
+<label for="inputState">Change Order Status</label>
       <select id="inputState" class="form-control" name="orderState" onChange={this.valueChange}>
         <option selected>Choose...</option>
         <option value="Preparing">Preparing</option>
@@ -91,20 +105,20 @@ return <div>
   </div>
 
 </form>
-<button class="btn btn-primary" onClick={()=>this.changeOrderState(element.orderid)}>Submit</button>
-  </li>
+<button class="btn btn-danger" onClick={()=>this.changeOrderState(element.orderid)}>Submit</button>
+<br></br><br/><hr/>
+  </div>
+      }
       })
       
         return(  <div class="content">
-         <div> <h2>Your Upcoming Orders!! <button class="btn btn-primary" onClick={this.setPastView}>View Past Orders</button></h2> 
-          <ul class="list-group">
+      {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData} switchback={this.setPastView}></PastOrder>: <div> <h2>Your Upcoming Orders!! <button class="btn btn-danger" orderData={this.props.upComingRestaurantOrderData} onClick={this.setPastView}>View Past Orders</button></h2> 
+         
  
  {orders}
-</ul>
+
 </div>
-<div>
-  {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData}></PastOrder>:<div></div>}
-</div>
+}  
       </div>)
        
 

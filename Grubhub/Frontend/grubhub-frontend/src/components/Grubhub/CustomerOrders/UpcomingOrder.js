@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions/actions';
 import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
+import PastOrder from './PastOrder';
 
 
 
@@ -11,10 +12,19 @@ import { Link } from 'react-router-dom';
 //upComingOrder
 class UpcomingOrder extends Component{
 
+  constructor(props){
+    super(props)
+    this.state={
+      orderState:"",
+      pastOrderView:false
+    }
 
+  }
 
 
   componentWillMount(){
+
+
 
     let cust_id = cookie.load('cust_id')
     
@@ -24,35 +34,56 @@ class UpcomingOrder extends Component{
      }
 
 
+     setPastView=()=>{
+      this.setState({
+       pastOrderView:!this.state.pastOrderView
+      })
+    }
+
     render(){
 
     console.log('Upcoming Orders::',this.props.upComingOrderData)
     let orders =  this.props.upComingOrderData.map((element)=>{
                
-  return <li class="list-group-item list-group-item-info">
+  return <div> 
+    <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="tableh">Item Name</th>
+      <th class="tableh">Item Price</th>
+      <th class="tableh">Item Quantity</th>
+    </tr>
+  </thead>
+  <tbody> 
   
-  <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2> 
-    
   {element.items.map((elem)=>{
-return <div>
-<p>Item Name: {elem.item_name}</p>
-<p>Item Price:{elem.item_price}</p>
-<p>Item Quantity:{elem.item_quantity}</p>
-<br></br><hr></hr>
-</div>
+return <tr>
+<td>{elem.item_name}</td>
+<td>{elem.item_price}</td>
+<td>{elem.item_quantity}</td>
+
+</tr>
   })}
   
-  Total : {element.order_total}
-  
-  </li>
+  </tbody></table>
+  Status:<font color="red">{element.status}</font>  
+  <br></br>
+  Total : <b>${element.order_total}</b>
+  <br></br><hr></hr>
+   </div>
       })
       
         return(  <div class="content">
-          <h2>Your Upcoming Orders!!</h2>
-          <ul class="list-group">
- 
+          {this.props.orderSuccess==true?<div class="alert alert-success">
+  <strong>Success!</strong> You should <a href="#" class="alert-link">read this message</a>.
+</div>:<div></div>}
+    {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingOrderData} switchback={this.setPastView}></PastOrder>: <div>
+          <h2> Your Upcoming Orders!! </h2><button class="btn btn-danger float-right" orderData={this.props.upComingOrderData} onClick={this.setPastView}>View Past Orders</button>
+          
  {orders}
-</ul>
+
+    </div>}
       </div>)
        
 

@@ -4,7 +4,7 @@ const upComingOrder = (req, res, connPool) =>{
     let resultOrder = {}
     connPool.getConnection((error,conn)=>{
        
-         let loadPastOrderQuery = `select * from orders where cust_id=? and status='New'`;
+         let loadPastOrderQuery = `select * from orders where cust_id=?`;
          console.log(loadPastOrderQuery);
          conn.query(loadPastOrderQuery,[id],(error,result)=>{
              if(error)
@@ -20,10 +20,11 @@ const upComingOrder = (req, res, connPool) =>{
                      orderTotal.order_id = element.order_total
                  });
                  let orderidArray = [orderid]
-                let getOrderDetails = 'select * from orders_items where order_id in (?)';
+                let getOrderDetails = 'select  o.order_id,o.status,o.order_total,oi.item_name,oi.item_price,oi.item_quantity,o.order_total,oi.restaurant_name from orders o,orders_items oi where  o.order_id=oi.order_id and  o.order_id in (?) order by o.order_id';
                 console.log(getOrderDetails);
             
                 console.log('Final Items array',orderid)
+                if(orderid.length>0){
                 conn.query(getOrderDetails,[orderid],(error,resultgetStatus)=>{ 
     
                     if(error)
@@ -35,7 +36,7 @@ const upComingOrder = (req, res, connPool) =>{
                         let finalll = []
                         let orderidd = resultgetStatus[0].order_id;
                         let restname =  resultgetStatus[0].restaurant_name;
-                        let arr = {restname:resultgetStatus[0].restaurant_name,orderid:resultgetStatus[0].order_id,order_total:result[0].order_total}
+                        let arr = {restname:resultgetStatus[0].restaurant_name,orderid:resultgetStatus[0].order_id,order_total:resultgetStatus[0].order_total,status:resultgetStatus[0].status}
                         arr.items=[]
                         resultgetStatus.forEach((orderItem)=>{
                             console.log('item is',orderItem)
@@ -50,7 +51,7 @@ const upComingOrder = (req, res, connPool) =>{
                                 console.log('heree not matched',orderItem)
                                 finalll.push(arr);
                                 arr= {}
-                             arr= {restname:orderItem.restaurant_name,orderid:orderItem.order_id,order_total:orderItem.order_total}
+                             arr= {restname:orderItem.restaurant_name,orderid:orderItem.order_id,order_total:orderItem.order_total,status:orderItem.status}
                              arr.items=[]
                              arr.items.push({item_name:orderItem.item_name,item_price:orderItem.item_price,item_quantity:orderItem.item_quantity})
                              orderidd=orderItem.order_id
@@ -68,16 +69,17 @@ const upComingOrder = (req, res, connPool) =>{
                         res.end(JSON.stringify({status:"success",dataOrder:finalll}));
                     }
     
-                 })
-            //     console.log('Load Up Coming orders data',result);
-            //     res.writeHead(200, {
-            //         'Content-Type': 'application/json'
-            //     });
-               
-             
-            //     res.end(JSON.stringify({status:"success",
-            //     upComingOrder:result
-            //    }));
+                 })}
+           
+                 else{
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json'
+                    });
+
+        
+                    res.end(JSON.stringify({status:"success",dataOrder:[]}));
+
+                 }
               
                              
              }

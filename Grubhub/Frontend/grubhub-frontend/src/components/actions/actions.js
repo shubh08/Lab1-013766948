@@ -395,6 +395,15 @@ export const loadMenuData = (data) =>{
 }
 
 
+//ChangeSuccess
+
+export const ChangeSuccess = () =>{
+    console.log('Changing Order Success Flag')
+    return {type:'LoadMenu',value:{orderSuccess:false}};
+}
+
+
+
 //addMenuData
 
 
@@ -715,7 +724,7 @@ export const loadRestaurant = (data) =>{
 
 export const orderAsync = (obj) =>{
     console.log('Here in order Async',obj);
-    return {type:'Order',value:obj};
+    return {type:'UpcomingOrder',value:obj};
 }
 
 
@@ -742,7 +751,8 @@ export const order = (data) =>{
                     dispatch(orderAsync({
                         authFlag : true,
                         loginStatus:'success',
-                        restaurantData:response.data.restaurantData
+                        orderSuccess:true
+                        
                     }))
                 }
                
@@ -839,7 +849,8 @@ export const upComingOrder = (data) =>{
                 {
                     dispatch(upComingOrderAsync({
                         authFlag : false,
-                        loginStatus:'failure'
+                        loginStatus:'failure',
+                        orderSuccess:false
                     })) 
                 }
                
@@ -847,7 +858,8 @@ export const upComingOrder = (data) =>{
                     dispatch(upComingOrderAsync({
                         authFlag : true,
                         loginStatus:'success',
-                        upComingOrderData:response.data.dataOrder
+                        upComingOrderData:response.data.dataOrder,
+                        orderSuccess:false
                     }))
                 }
                
@@ -858,7 +870,8 @@ export const upComingOrder = (data) =>{
             console.log('Inside exception throw!!')
             dispatch(upComingOrderAsync({
                 authFlag : false,
-                loginStatus:'failure'
+                loginStatus:'failure',
+                orderSuccess:false
             }))
             
         })

@@ -10,13 +10,15 @@ class ManageCustomer extends Component{
 
     
     render(){
-        return( <div>
-            <div class="sidebar">
-              <a class="active" href="#home">Home</a>
-              <Link to="/customer/manageCustomer/upcomingOrder">Upcoming Orders</Link>
+        return( <div> 
+            <div class="sidebar">  
+            <div id="links">
+            <Link to="/customer/home">Home</Link>
+              <Link to="/customer/manageCustomer/upcomingOrder">Manage Orders</Link>
               {/* <a href="/customer/manageCustomer/pastOrder">Past Orders</a>
               <a href="/customer/manageCustomer/upcomingOrder">Upcoming Orders</a> */}
               <a href="/customer/manageCustomer/customerProfile">Profile</a>
+              </div>
             </div>
             
            

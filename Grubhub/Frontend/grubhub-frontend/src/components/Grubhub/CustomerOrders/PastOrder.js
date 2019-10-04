@@ -1,54 +1,66 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router';
-import {connect} from 'react-redux';
-import * as actions from '../../actions/actions';
-import cookie from 'react-cookies';
-import { Link } from 'react-router-dom';
 import './Order.css'
 
 class PastOrder extends Component{
 
-  componentWillMount(){
-
-    let cust_id = cookie.load('cust_id')
-    
-     this.props.pastorder({id:cust_id});
-     
-     }
-    render(){
-        return(  <div class="content">
-        
-      </div>)
-       
-
-    }
-
-
+constructor(props)
+{
+    super(props)
 }
 
+render(){
 
 
-const mapState = (store) =>{
-  console.log('Past Orders',store)
-    return{
+
+    console.log('Past Orders::',this.props.pastData)
+    let orders =  this.props.pastData.map((element)=>{
+    if(element.status==='Delivered') {        
+  return <div>  <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
+  <table class="table">
+<thead class="thead-dark">
+  <tr>
+    <th class="tableh">Item Name</th>
+    <th class="tableh">Item Price</th>
+    <th class="tableh">Item Quantity</th>
+  </tr>
+</thead>
+<tbody> 
+  {element.items.map((elem)=>{
+return 
+ <tr>
+<td>{elem.item_name}</td>
+<td>{elem.item_price}</td>
+<td>{elem.item_quantity}</td>
+
+</tr>
+
+  })}
   
-      loginStatus:store.loginStatus,
-      objLogin:store.objLogin,
-      updateSuccess:store.updateSuccess
-    }
-  }
-  
+  </tbody></table>
+  Status:<font color="red">{element.status}</font>  
+  <br></br>
+  Total : <b>${element.order_total}</b>
+  <br></br><hr></hr>
 
+  </div>}
 
-  const mapDispach = (dispach) =>{
-  return{
-    valueChangeObserver:(e) => dispach(actions.valueMapper(e)),
-    loadProfileData:(data)=>dispach(actions.loadProfileData(data)),
-    pastorder:(data)=>dispach(actions.pastorder(data)),
-    // decAge:() => dispach({type:'Agedo'})
-  }
-  }
-  
-  
-export default connect(mapState,mapDispach) (PastOrder);
+      })
 
+    return(
+        <div> 
+          <div align="right"> <button class="btn btn-danger float-right" onClick={this.props.switchback}>View Current Orders</button>  </div>
+        <h2 align="center">Your Past Orders </h2>
+       
+ 
+ {orders}
+
+        
+        
+            </div>
+
+    )
+
+}
+}
+
+export default PastOrder;

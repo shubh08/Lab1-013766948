@@ -43,6 +43,7 @@ const initialState = {
     restaurantData:[],
     upComingOrderData:[],
     upComingRestaurantOrderData:[],
+    orderSuccess:false,
     objLogin:{
        
     },

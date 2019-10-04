@@ -18,7 +18,8 @@ class LoadRestaurant extends Component {
             restaurantid: "",
             rest_name: "",
             orderData:[],
-            total:0
+            total:0,
+            reDirect:null
         }
 
     }
@@ -122,6 +123,20 @@ class LoadRestaurant extends Component {
 
     }
 
+    redirectHome = ()=>{
+console.log('Herer in the redirectHomeeeeeeeeeeeeeeeeeeee')
+        let reDirect = <Redirect to={{
+            pathname: '/customer/home'            
+        }}
+        />
+
+        this.setState({
+            reDirect: reDirect
+        })
+
+
+    }
+
 
     componentWillMount() {
 
@@ -156,10 +171,24 @@ class LoadRestaurant extends Component {
 
         
         let redirectVar = null
-        if (!cookie.load('owner_id')) {
+        if (!cookie.load('cust_id')) {
 
             redirectVar = <Redirect to="/" />
         }
+
+        if(this.props.orderSuccess)
+        {
+            redirectVar = <Redirect to={{
+                pathname: '/customer/OrderSuccess',
+                state: { flag: true
+                }
+            }}
+            />
+
+        }
+
+        console.log('Order Success Value',this.props.orderSuccess)
+        console.log('Order Success Value',redirectVar)
 
         let breakFast = []
         let lunch = []
@@ -221,6 +250,8 @@ class LoadRestaurant extends Component {
             appetizersmenu = <div><h2>Appetizers Menu:</h2> <div class="rowCard">{appetizersmenu}<br/><hr/></div></div>
         }
 
+   
+        
 
         if(this.state.orderData.length>0)
         {
@@ -237,11 +268,14 @@ class LoadRestaurant extends Component {
         currentOrders = <div class="container"> <br></br> <br></br> <h2>You have selected following Items:</h2> <ul class="list-group">{currentOrders}</ul>
         <br></br>
         <h3>Your total is: ${total}</h3>
-        <button class="btn btn-primary" onClick={()=>this.orderNow(total)}>Order Now!!</button> <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-primary" onClick={()=>this.orderNow(total)}>Order Now!!</button> <button class="btn btn-danger" onClick={this.redirectHome}>Cancel</button>
+       
         </div>
         }
 
-        return (<div class="section">
+        return (<div>
+            {redirectVar}
+            <div class="section">
 
             <h1>{this.state.rest_name}</h1>
 
@@ -250,7 +284,8 @@ class LoadRestaurant extends Component {
             {appetizersmenu}
 
             {currentOrders}
-
+            
+        </div>
         </div>)
 
 
@@ -269,7 +304,8 @@ const mapState = (store) => {
         restaurantData: store.restaurantData,
         loginStatus: store.loginStatus,
         objLogin: store.objLogin,
-        updateSuccess: store.updateSuccess
+        updateSuccess: store.updateSuccess,
+        orderSuccess:store.orderSuccess
     }
 }
 

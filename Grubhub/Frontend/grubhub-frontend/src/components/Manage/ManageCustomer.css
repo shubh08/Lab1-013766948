@@ -8,18 +8,23 @@
     height: 100%;
     overflow: auto;
     border-right: 1px solid black;
+    color:#ED2E38;
   }
   
-  .sidebar a {
+  a{
+    color:#ED2E38;
+  }
+
+  a {
     display: block;
-    color: blue;
+    color:#ED2E38 none repeat scroll 0 0;
     padding: 16px;
     text-decoration: none;
   }
    
-  .sidebar a.active {
-    background-color: white;
-    color: black;
+   a.active {
+    background-color: #ED2E38;
+    color: #ED2E38;
   }
   
   
