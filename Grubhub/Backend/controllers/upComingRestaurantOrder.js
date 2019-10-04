@@ -1,26 +1,24 @@
-const upComingOrder = (req, res, connPool) =>{
-    console.log('Inside load Upcoming order for Customer Data!!',req.body)
-    const{id} = req.body;
+const upComingRestaurantOrder = (req, res, connPool) => {
+    console.log('Inside load Upcoming order Data for restaurant!!', req.body)
+    const { id } = req.body;
     let resultOrder = {}
-    connPool.getConnection((error,conn)=>{
-       
-         let loadPastOrderQuery = `select * from orders where cust_id=? and status='New'`;
-         console.log(loadPastOrderQuery);
-         conn.query(loadPastOrderQuery,[id],(error,result)=>{
-             if(error)
-             {
-                 throw error;
-             }
+    connPool.getConnection((error, conn) => {
 
-             else{
+        let loadPastOrderQuery = `select * from orders where restaurant_id=(select restaurant_id from restaurant where owner_id=?) and status='New'`;
+        console.log(loadPastOrderQuery);
+        conn.query(loadPastOrderQuery, [id], (error, resultOrder) => {
+            if (error) {
+                throw error;
+            }
+
+            else {
+           
                  let orderid = [];
-                 let orderTotal = {}
-                 result.forEach(element => {
+                 resultOrder.forEach(element => {
                      orderid.push(element.order_id)
-                     orderTotal.order_id = element.order_total
                  });
                  let orderidArray = [orderid]
-                let getOrderDetails = 'select * from orders_items where order_id in (?)';
+                let getOrderDetails = 'select  c.cust_fname,c.cust_lname,o.order_id,o.status,oi.item_name,oi.item_price,oi.item_quantity,oi.order_total from customer_info c,orders o,orders_items oi where  o.cust_id=c.cust_id and o.order_id=oi.order_id and c.cust_id in (select o.cust_id from orders o where o.order_id in (?))';
                 console.log(getOrderDetails);
             
                 console.log('Final Items array',orderid)
@@ -34,8 +32,7 @@ const upComingOrder = (req, res, connPool) =>{
                     else{
                         let finalll = []
                         let orderidd = resultgetStatus[0].order_id;
-                        let restname =  resultgetStatus[0].restaurant_name;
-                        let arr = {restname:resultgetStatus[0].restaurant_name,orderid:resultgetStatus[0].order_id,order_total:result[0].order_total}
+                        let arr = {orderid:resultgetStatus[0].order_id,cust_fname:resultgetStatus[0].cust_fname,cust_lname:resultgetStatus[0].cust_lname,status:resultgetStatus[0].status,order_total:resultgetStatus[0].order_total}
                         arr.items=[]
                         resultgetStatus.forEach((orderItem)=>{
                             console.log('item is',orderItem)
@@ -50,7 +47,7 @@ const upComingOrder = (req, res, connPool) =>{
                                 console.log('heree not matched',orderItem)
                                 finalll.push(arr);
                                 arr= {}
-                             arr= {restname:orderItem.restaurant_name,orderid:orderItem.order_id,order_total:orderItem.order_total}
+                             arr= {restname:orderItem.restaurant_name,orderid:orderItem.order_id,cust_fname:orderItem.cust_fname,cust_lname:orderItem.cust_lname,status:orderItem.status,order_total:orderItem.order_total}
                              arr.items=[]
                              arr.items.push({item_name:orderItem.item_name,item_price:orderItem.item_price,item_quantity:orderItem.item_quantity})
                              orderidd=orderItem.order_id
@@ -59,36 +56,28 @@ const upComingOrder = (req, res, connPool) =>{
                         })
 
                         finalll.push(arr)
-
                         res.writeHead(200, {
                             'Content-Type': 'application/json'
                         });
 
             
-                        res.end(JSON.stringify({status:"success",dataOrder:finalll}));
+                        res.end(JSON.stringify({status:"success",upComingRestaurantOrder:finalll}));
                     }
     
                  })
-            //     console.log('Load Up Coming orders data',result);
-            //     res.writeHead(200, {
-            //         'Content-Type': 'application/json'
-            //     });
-               
+          
              
-            //     res.end(JSON.stringify({status:"success",
-            //     upComingOrder:result
-            //    }));
-              
-                             
-             }
-           
-             
-         })  
-         conn.release();
- })
+            }
+
+
+        })
+        conn.release();
+    })
 }
 
 
+
+
 module.exports = {
-    upComingOrder: upComingOrder
-  };
+    upComingRestaurantOrder: upComingRestaurantOrder
+};

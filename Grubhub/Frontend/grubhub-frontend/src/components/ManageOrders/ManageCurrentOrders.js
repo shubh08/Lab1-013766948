@@ -1,147 +1,111 @@
-
 import React, {Component} from 'react';
-
-
-import cookie from 'react-cookies';
-import {Redirect} from 'react-router';
-
+import './ManageCurrentOrders.css'
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
-import './ManageCurrentOrders.css'
+import cookie from 'react-cookies';
+import { Link } from 'react-router-dom';
+import PastOrder from './PastOrder';
 
 
+
+
+//upComingOrder
 class ManageCurrentOrders extends Component{
 
-reDirect = ''
-  constructor(){
-
-    super();
-
+  constructor(props){
+    super(props)
     this.state={
-        sectionName:"",
-        sectionDescription:"",
-        reDirect:""
-        }
-        
-}
+      orderState:"",
+      pastOrderView:false
+    }
+
+  }
 
 
-
-valueChangedHandler=(event)=>{
-  const {name,value} = event.target;
-  this.setState({
-      [name]:value
-  });
-}
-
-
-
-sectionItem = (id)=>{
-
-  //this.props.loadMenu({id:id});
-
-}
-
-
-addSection=()=>{
-
-  let data = {section_name:this.state.sectionName,section_description:this.state.sectionDescription,id:this.props.restaurant_id}
-  console.log('here after getting input!!!',data);
-  this.props.addSectionData(data)
-
-
-}
-
-viewSection = (data)=>{
-console.log('Inside section view',data.section_id);
-
-console.log('here clicked');
-let reDirect= <Redirect to={{
-    pathname: '/restaurant/manage/menu',
-    state: { sectionid: data.section_id ,
-    sectionname:data.section_name}
-}}
-/>
-
-this.setState({
-reDirect:reDirect
-})
-console.log(this.reDirect) 
-
-
-}
-
-deleteSection=(data)=>{
-    let restaurant_id = cookie.load('restaurant_id')
-
-console.log('Inside section id',data.section_id)
-
-this.props.deleteSectionData({deleteid:data.section_id,id:restaurant_id});
-
-}
 
 
   componentWillMount(){
 
-let restaurant_id = cookie.load('restaurant_id')
-
- this.props.loadSectionData({id:restaurant_id});
- 
- }
-
+    let owner_id = cookie.load('owner_id')
     
-    render(){
-        let redirectVar = null;
-      if(!cookie.load('owner_id')){
-        console.log('loggin out owner id');
-          redirectVar = <Redirect to= "/"/>
-      }
 
-        
-    let sectionArray = this.props.sectionData.map((sectionItem)=>{
-
-      console.log('hereererer',sectionItem)
-      return  <li class="list-group-item"><h3>{sectionItem.section_name}</h3>
-                <h4>{sectionItem.section_description}</h4>
-      
-          &nbsp;  
-         
-         
-        <div id="outer">
-        <div class="inner"><button class='btn btn-primary btnFormat' onClick = {()=>this.updateSection(sectionItem)}><i class="fa fa-edit"></i></button></div>
-        <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.deleteSection(sectionItem)}  ><i class="fa fa-trash"></i></button></div>
-        <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.viewSection(sectionItem)}  ><i class="fa fa-eye"></i></button></div>
-    </div> 
-          
-          
-          </li>
-
-  });
+     this.props.upComingRestaurantOrder({id:owner_id});
 
      
-        return( <div class="section">
-            {redirectVar}
+     }
+
+     setPastView=()=>{
+       this.setState({
+        pastOrderView:true
+       })
+     }
+
+     valueChange=(event)=>{
+      const {name,value} = event.target;
+    this.setState({
+        [name]:value
+    });
+
+     }
 
 
+     changeOrderState = (orderid)=>{
+      let owner_id = cookie.load('owner_id')
+      console.log('Order State is',this.state.orderState,orderid)
+      this.props.changeOrderStateProps({status:this.state.orderState,id:owner_id,order_id:orderid});
 
-           {this.state.reDirect}
-            
-           <h1 align="center">Manage Current Orders</h1>
-{/* 
-           <div class="col-md-4 text-center"> 
-           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Section</button> 
-</div>
-    */}
-            <ul class="list-group sectionul">
+     }
+    render(){
 
-    <br/> <hr/>
-
-          {sectionArray}
-
-       </ul>
+    console.log('Upcoming Orders::',this.props.upComingRestaurantOrderData)
+    let orders =  this.props.upComingRestaurantOrderData.map((element)=>{
+               
+  return <li class="list-group-item list-group-item-info">
+  
+  <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
     
-           
-            </div>)
+  {element.items.map((elem)=>{
+return <div>
+<p>Item Name: {elem.item_name}</p>
+<p>Item Price:{elem.item_price}</p>
+<p>Item Quantity:{elem.item_quantity}</p>
+
+<br></br><hr></hr>
+</div>
+  })}
+  
+  Total : {element.order_total}
+  <br></br>
+  Status:{element.status}  
+<br></br>
+<form>
+<div class="form-group">
+<label for="inputState">State</label>
+      <select id="inputState" class="form-control" name="orderState" onChange={this.valueChange}>
+        <option selected>Choose...</option>
+        <option value="Preparing">Preparing</option>
+        <option value="Ready">Ready</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancel">Cancel</option>
+      </select>
+  </div>
+
+</form>
+<button class="btn btn-primary" onClick={()=>this.changeOrderState(element.orderid)}>Submit</button>
+  </li>
+      })
+      
+        return(  <div class="content">
+         <div> <h2>Your Upcoming Orders!! <button class="btn btn-primary" onClick={this.setPastView}>View Past Orders</button></h2> 
+          <ul class="list-group">
+ 
+ {orders}
+</ul>
+</div>
+<div>
+  {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData}></PastOrder>:<div></div>}
+</div>
+      </div>)
        
 
     }
@@ -149,12 +113,13 @@ let restaurant_id = cookie.load('restaurant_id')
 
 }
 
+
+
+
 const mapState = (store) =>{
-  console.log('Manage Restaurant Props',store)
+  console.log('Past Orders',store)
     return{
-  
-      restaurant_id:store.restaurant_id,
-      sectionData:store.sectionData,
+      upComingRestaurantOrderData:store.upComingRestaurantOrderData,
       loginStatus:store.loginStatus,
       objLogin:store.objLogin,
       updateSuccess:store.updateSuccess
@@ -165,12 +130,14 @@ const mapState = (store) =>{
 
   const mapDispach = (dispach) =>{
   return{
-    loadSectionData:(data)=>dispach(actions.loadSectionData(data)),
-    addSectionData:(data)=>dispach(actions.addSectionData(data)), 
-    deleteSectionData:(data)=>dispach(actions.deleteSectionData(data))
+    valueChangeObserver:(e) => dispach(actions.valueMapper(e)),
+    loadProfileData:(data)=>dispach(actions.loadProfileData(data)),
+    changeOrderStateProps:(data)=>dispach(actions.changeOrderStateProps(data)),
+    upComingRestaurantOrder:(data)=>dispach(actions.upComingRestaurantOrder(data)),
     // decAge:() => dispach({type:'Agedo'})
   }
   }
   
   
 export default connect(mapState,mapDispach) (ManageCurrentOrders);
+

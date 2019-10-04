@@ -101,7 +101,7 @@ class LoadRestaurant extends Component {
         let orderItems = this.state.orderData;
        let restaurant_id = this.state.restaurantid;
        let status="New"
-       this.props.order({cust_id:cust_id,orderItems:orderItems,restaurant_id:restaurant_id,status:status,rest_name:this.state.rest_name});
+       this.props.order({cust_id:cust_id,orderItems:orderItems,restaurant_id:restaurant_id,status:status,rest_name:this.state.rest_name,order_total:total});
     }
 
     viewSection = (data) => {

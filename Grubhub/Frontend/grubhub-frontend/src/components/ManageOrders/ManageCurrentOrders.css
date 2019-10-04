@@ -4,25 +4,4 @@
 }
 
 
-ul.sectionul {
-    width: 80%;
-    margin: auto;
-}
 
-
-
-#outer
-{
-    width:100%;
-    text-align: center;
-}
-.inner
-{
-    display: inline-block;
-}
-
-.btnFormat{
-
-    margin-left: 20px;
-    margin-right: 20px;
-}

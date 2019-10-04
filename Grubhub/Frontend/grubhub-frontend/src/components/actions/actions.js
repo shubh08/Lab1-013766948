@@ -865,3 +865,102 @@ export const upComingOrder = (data) =>{
         
     }
 }
+
+//Load Restaurant Current Orders   
+
+
+
+export const upComingRestaurantOrderAsync = (obj) =>{
+    console.log('Here in upComingRestaurantOrderAsync Async',obj);
+    return {type:'UpcomingOrder',value:obj};
+}
+
+
+export const upComingRestaurantOrder = (data) =>{
+    console.log('Preparing for order ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/upComingRestaurantOrder',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        upComingRestaurantOrderData:response.data.upComingRestaurantOrder
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(upComingRestaurantOrderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}
+
+
+//Change Order State
+
+
+
+export const changeOrderStateProps = (data) =>{
+    console.log('Preparing for order ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/changeOrderState',data)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        upComingRestaurantOrderData:response.data.upComingRestaurantOrder
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(upComingRestaurantOrderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}

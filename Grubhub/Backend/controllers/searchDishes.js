@@ -8,8 +8,8 @@ const searchDishes = (req, res, connPool) =>{
     connPool.getConnection((error,conn)=>{
         // encryptPass = hash;
 
-         console.log('Inside search Dishes!');
-         let loadProfileQuery = `select r.rest_name,r.rest_image,r.rest_cuisine,r.restaurant_id from restaurant r, section s, menu m where r.restaurant_id=s.restaurant_id and s.section_id=m.section_id and ? LIKE CONCAT('%', m.menu_name, '%');` ;
+         console.log('Inside search Dishes!');  " like '%" + req.params.name + "%'"
+         let loadProfileQuery = "select distinct(r.restaurant_id), r.rest_name,r.rest_image,r.rest_cuisine from restaurant r, section s, menu m where r.restaurant_id=s.restaurant_id and s.section_id=m.section_id and m.menu_name  like '%" + searchTerm + "%'" ;
          console.log(loadProfileQuery);
          conn.query(loadProfileQuery,[searchTerm],(error,result)=>{
              if(error)

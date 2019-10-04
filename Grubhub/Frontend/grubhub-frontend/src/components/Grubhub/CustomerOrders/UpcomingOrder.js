@@ -42,7 +42,7 @@ return <div>
 </div>
   })}
   
-  Total : 
+  Total : {element.order_total}
   
   </li>
       })
