@@ -59,6 +59,7 @@ closeForm=()=>{
 
 
 updateForm = (data)=>{
+  document.getElementById('formupdate').reset();
 console.log('Here in the update form1111111111111111',data)
 this.setState({
     sectionName:data.section_name,
@@ -235,7 +236,7 @@ let restaurant_id = cookie.load('restaurant_id')
              <h4 class="modal-title">Update Section Details</h4>
            </div>
            <div class="modal-body">
-            <form>
+            <form ID="formupdate">
             <div class="form-group">
        <label for="sectionName">Enter Section Name</label>
        <input type="text" class="form-control" id="sectionName" name="sectionName" defaultValue={this.state.sectionName} onChange={this.valueChangedHandler} />

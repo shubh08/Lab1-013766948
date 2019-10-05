@@ -977,3 +977,61 @@ export const changeOrderStateProps = (data) =>{
         
     }
 }
+
+
+//upload menu
+
+
+
+export const uploadMenu = (data) =>{
+    console.log('Preparing for image upload ',data)
+    return dispatch =>{
+    //set the with credentials to true
+    
+    let fd = new FormData();
+
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    fd.append('image',data.image)  
+    fd.append('menu_id',data.menu_id)  
+    fd.append('id',data.id)
+    fd.append('type',data.type)
+    fd.append('restid',data.restid)
+    console.log('Datadaa to be sent',fd)
+    axios.defaults.withCredentials = true;
+    
+    //make a post request with the user data
+    axios.post('http://localhost:3001/upload', fd, config)
+        .then(response => {
+            console.log("Status Code : ",response.data);
+            if(response.status === 200){
+                if(response.data.status==="failure")
+                {
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : false,
+                        loginStatus:'failure'
+                    })) 
+                }
+               
+                else{
+                    dispatch(upComingRestaurantOrderAsync({
+                        authFlag : true,
+                        loginStatus:'success',
+                        menuData:response.data.menuData,
+                        ...response.data,
+                    }))
+                }
+               
+            }else{
+               
+            }
+        }).catch(error => {
+            console.log('Inside exception throw!!')
+            dispatch(upComingRestaurantOrderAsync({
+                authFlag : false,
+                loginStatus:'failure'
+            }))
+            
+        })
+        
+    }
+}

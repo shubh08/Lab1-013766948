@@ -63,6 +63,7 @@ class ManageCurrentOrders extends Component{
                
   return <div>
     <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
+    <p>Customer Address:{element.cust_address}</p>
    
     <table class="table">
   <thead class="thead-dark">
@@ -112,7 +113,7 @@ Status:<font color="red">{element.status}</font>
       })
       
         return(  <div class="content">
-      {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData} switchback={this.setPastView}></PastOrder>: <div> <h2>Your Upcoming Orders!! <button class="btn btn-danger" orderData={this.props.upComingRestaurantOrderData} onClick={this.setPastView}>View Past Orders</button></h2> 
+      {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData} switchback={this.setPastView}></PastOrder>: <div> <h2><b>Your Upcoming Orders!!</b> <button class="btn btn-danger" orderData={this.props.upComingRestaurantOrderData} onClick={this.setPastView}>View Past Orders</button></h2> 
          
  
  {orders}

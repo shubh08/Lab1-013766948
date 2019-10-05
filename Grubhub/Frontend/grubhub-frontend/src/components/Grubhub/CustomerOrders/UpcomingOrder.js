@@ -44,7 +44,7 @@ class UpcomingOrder extends Component{
 
     console.log('Upcoming Orders::',this.props.upComingOrderData)
     let orders =  this.props.upComingOrderData.map((element)=>{
-               
+      if(element.status!='Delivered')  {         
   return <div> 
     <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
     <table class="table">
@@ -71,15 +71,13 @@ return <tr>
   <br></br>
   Total : <b>${element.order_total}</b>
   <br></br><hr></hr>
-   </div>
+   </div>}
       })
       
         return(  <div class="content">
-          {this.props.orderSuccess==true?<div class="alert alert-success">
-  <strong>Success!</strong> You should <a href="#" class="alert-link">read this message</a>.
-</div>:<div></div>}
+          
     {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingOrderData} switchback={this.setPastView}></PastOrder>: <div>
-          <h2> Your Upcoming Orders!! </h2><button class="btn btn-danger float-right" orderData={this.props.upComingOrderData} onClick={this.setPastView}>View Past Orders</button>
+          <button class="btn btn-primary float-right" orderData={this.props.upComingOrderData} onClick={this.setPastView}>View Past Orders</button><h2><b>Your Upcoming Orders!!</b>  </h2>
           
  {orders}
 

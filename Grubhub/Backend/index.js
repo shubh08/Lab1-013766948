@@ -30,13 +30,27 @@ const order = require('./controllers/order');
 const pastorder = require('./controllers/pastorder');    //upComingOrder
 const upComingOrder = require('./controllers/upComingOrder');   //upComingRestaurantOrder
 const upComingRestaurantOrder = require('./controllers/upComingRestaurantOrder'); 
-const changeOrderState = require('./controllers/changeOrderState'); //changeOrderState
+const changeOrderState = require('./controllers/changeOrderState'); //changeOrderState  //saveImagetoMenu
+const saveImagetoMenu = require('./controllers/saveImagetoMenu');
+const saveImagetoCustomer = require('./controllers/saveImagetoCustomer'); 
+const saveImagetoOwner = require('./controllers/saveImagetoOwner');  //saveImagetoCustomer  //saveImagetoOwner //saveImagetoRestaurant
+const saveImagetoRestaurant = require('./controllers/saveImagetoRestaurant');
 // const profile = require('./controllers/profile');
 // const image = require('./controllers/image');
 
 const saltRounds = 10;
 
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'./uploads/');
+    },
+    filename: function(req,file,cb){
+        cb(null,file.originalname);
+      
+    }
+})
 
+const upload = multer({storage:storage})
 
 
 let connPool = sqlCon.createPool({
@@ -65,6 +79,8 @@ app.use(session({
 //     extended: true
 //   }));
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname+'/uploads'));
 
 //Allow Access Control
 app.use(function (req, res, next) {
@@ -236,9 +252,31 @@ app.post('/deleteSection', function (req, res) {
 
 
 //addMenu  addMenu
-app.post('/addMenu',(req,res)=>{
-
+app.post('/addMenu',upload.single('menu_image'),(req,res)=>{
+    console.log('File pathhhhhhhhhhhhhhhhhhhhhh--------------------------------------->',req.file)
     addMenu.addMenu(req, res, connPool);
+
+})
+
+
+//Upload  upload
+app.post('/upload',upload.single('image'),(req,res)=>{
+    console.log('File pathhhhhhhhhhhhhhhhhhhhhh--------------------------------------->',req.body.id)
+    // addMenu.addMenu(req, res, connPool);\
+
+    if(req.file){
+        console.log('herere in the fule upload',req.file)
+        req.body.image=req.file.filename;
+    }
+    console.log('Final Image to push',req.body)
+    if(req.body.type==='Menu')
+   saveImagetoMenu.saveImagetoMenu(req,res,connPool);
+   else if(req.body.type==='Customer')
+   saveImagetoCustomer.saveImagetoCustomer(req,res,connPool);
+   else if(req.body.type==='Owner')
+   saveImagetoOwner.saveImagetoOwner(req,res,connPool);
+  else
+  saveImagetoRestaurant.saveImagetoRestaurant(req,res,connPool);
 
 })
 

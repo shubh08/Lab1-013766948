@@ -11,11 +11,11 @@
     color:#ED2E38;
   }
   
-  a{
+  .sidebar a{
     color:#ED2E38;
   }
 
-  a {
+  .sidebar a {
     display: block;
     color:#ED2E38 none repeat scroll 0 0;
     padding: 16px;

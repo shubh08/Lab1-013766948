@@ -26,8 +26,8 @@ render(){
 </thead>
 <tbody> 
   {element.items.map((elem)=>{
-return 
- <tr>
+return  <tr>
+
 <td>{elem.item_name}</td>
 <td>{elem.item_price}</td>
 <td>{elem.item_quantity}</td>
@@ -48,8 +48,8 @@ return
 
     return(
         <div> 
-          <div align="right"> <button class="btn btn-danger float-right" onClick={this.props.switchback}>View Current Orders</button>  </div>
-        <h2 align="center">Your Past Orders </h2>
+          <div> <button class="btn btn-primary float-right" onClick={this.props.switchback}>View Current Orders</button>  </div>
+        <h2 ><b>Your Past Orders!!</b> </h2>
        
  
  {orders}

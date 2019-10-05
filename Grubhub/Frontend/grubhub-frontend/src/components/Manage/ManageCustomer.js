@@ -14,7 +14,7 @@ class ManageCustomer extends Component{
             <div class="sidebar">  
             <div id="links">
             <Link to="/customer/home">Home</Link>
-              <Link to="/customer/manageCustomer/upcomingOrder">Manage Orders</Link>
+              <Link to="/customer/manageCustomer/upcomingOrder">View Orders</Link>
               {/* <a href="/customer/manageCustomer/pastOrder">Past Orders</a>
               <a href="/customer/manageCustomer/upcomingOrder">Upcoming Orders</a> */}
               <a href="/customer/manageCustomer/customerProfile">Profile</a>

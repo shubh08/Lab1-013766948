@@ -73,31 +73,12 @@ class CustomerHome extends Component{
       
       render(){
           let redirectVar = null;
-        if(!cookie.load('owner_id')){
+        if(!cookie.load('cust_id')){
           
             redirectVar = <Redirect to= "/"/>
         }
   
-          
-    //   let sectionArray = this.props.sectionData.map((sectionItem)=>{
-  
-        
-    //     return  <li class="list-group-item"><h3>{sectionItem.section_name}</h3>
-    //               <p>{sectionItem.section_description}</p>
-        
-    //         &nbsp;  
-    //         {/* <button class='btn btn-primary btnFormat' onClick = {()=>this.updateSection(sectionItem)}> */}
-           
-    //       <div id="outer"> 
-    //       <div class="inner"><button  class="btn btn-primary btnFormat" data-toggle="modal" data-target="#myModalUpdate"onClick = {()=>this.updateForm(sectionItem)} ><i class="fa fa-edit"></i></button></div>
-    //       <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.deleteSection(sectionItem)}  ><i class="fa fa-trash"></i></button></div>
-    //       <div class="inner"><button class="btn btn-danger btnFormat" onClick = {()=>this.viewSection(sectionItem)}  ><i class="fa fa-eye"></i></button></div>
-    //   </div> 
-            
-            
-    //         </li>
-  
-    // });
+ 
   
        
           return( <div>

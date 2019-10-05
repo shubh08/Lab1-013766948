@@ -9,7 +9,7 @@ connPool.getConnection((error,conn)=>{
     let encryptPass='';
     let queryAddSection = 'insert into menu(menu_name,menu_description,menu_price,menu_image,section_id) values (?, ?, ?,?,?)';
     console.log(queryAddSection);
-    conn.query(queryAddSection,[menu_name,menu_description,menu_price,menu_image,id],(error,resultgetStatus)=>{
+    conn.query(queryAddSection,[menu_name,menu_description,menu_price,'default.png',id],(error,resultgetStatus)=>{
 
         if(error)
         {

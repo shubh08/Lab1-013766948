@@ -24,6 +24,7 @@ import CustomerHome from './CustomerHome/CustomerHome';
 import CustomerSearch from './CustomerSearch/CustomerSearch';
 import LoadRestaurant from './LoadRestaurant/LoadRestaurant';
 import OrderSuccess from './Grubhub/CustomerOrders/OrderSuccess';
+import MenuView from './ManageOrders/MenuView';
 // import Home from './Home/Home';
 // import Delete from './Delete/Delete';
 // import Create from './Create/Create';
@@ -48,8 +49,8 @@ class Root extends Component {
                 <Route path="/restaurant/manageCurrentOrders" component={ManageCurrentOrders}/>
                 
                  
-                <Route path="/restaurant/manage/menu" component={ManageMenu}/>    
-                
+                <Route path="/restaurant/manage/menu" component={ManageMenu}/>      
+                <Route path="/restaurant/menuView" component={MenuView}/>
                 <Route path="/restaurant/manage/profile" component={OwnerProfile}/>  
               
 

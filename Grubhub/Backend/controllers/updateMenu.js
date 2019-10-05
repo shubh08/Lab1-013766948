@@ -7,9 +7,9 @@ const updateMenu = (req, res, connPool) =>{
 
 connPool.getConnection((error,conn)=>{
    
-    let queryAddSection = 'update menu set menu_name=?,menu_description=?,menu_image=?,menu_price=? where menu_id=?';
+    let queryAddSection = 'update menu set menu_name=?,menu_description=?,menu_price=? where menu_id=?';
     console.log(queryAddSection);
-    conn.query(queryAddSection,[menu_name,menu_description,menu_image,menu_price,updateid],(error,resultgetStatus)=>{
+    conn.query(queryAddSection,[menu_name,menu_description,menu_price,updateid],(error,resultgetStatus)=>{
 
         if(error)
         {

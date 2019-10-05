@@ -208,46 +208,52 @@ console.log('Herer in the redirectHomeeeeeeeeeeeeeeeeeeee')
             breakfastmenu = breakFast.map((item) => {
                 
                 return <div class="columnCard"><div class="card">
+                     <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
-                    <p>{item.menu_price}</p>
                     <p>{item.menu_description}</p>
+                    <p>${item.menu_price}</p>
+                   
                     <input type='button' value='-' class='qtyminus' onClick={()=>this.decrease(item)} field='quantity' />
     <p id={item.menu_id}>0</p>
     <input type='button' value='+' class='qtyplus' onClick={()=>this.increase(item)} field='quantity' />
                 </div> </div>
             })
-            breakfastmenu = <div><h2>BreakFast Menu: <br/></h2><div class="rowCard">{breakfastmenu}
+            breakfastmenu = <div><h3>BreakFast Menu:</h3><div class="rowCard">{breakfastmenu}
             
-            <br/><hr/></div>
-            
+           </div>
+           <br/><hr/>
              </div> 
         }
         if (lunch.length > 0) {
             lunchmenu = lunch.map((item) => {
                 return <div class="columnCard"> <div class="card">
+                     <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
-                    <p>{item.menu_price}</p>
                     <p>{item.menu_description}</p>
+                    <p>${item.menu_price}</p>
+                   
                     <input type='button' value='-' class='qtyminus' onClick={()=>this.decrease(item)} field='quantity' />
     <p id={item.menu_id}>0</p>
     <input type='button' value='+' class='qtyplus' onClick={()=>this.increase(item)} field='quantity' />
                 </div> </div>
             })
-            lunchmenu = <div><h2>Lunch Menu:</h2><div class="rowCard">{lunchmenu}<br/><hr/></div>   </div>
+            lunchmenu = <div><h3>Lunch Menu:</h3><div class="rowCard">{lunchmenu}</div> <br/><hr/>  </div>
         }
         if (appetizers.length > 0) {
             appetizersmenu = appetizers.map((item) => {
                 return <div class="columnCard"> <div class="card">
+                    <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
-                    <p>{item.menu_price}</p>
                     <p>{item.menu_description}</p>
+                    <p>${item.menu_price}</p>
+                    
                     <input type='button' value='-' class='qtyminus' onClick={()=>this.decrease(item)} field='quantity' />
     <p id={item.menu_id}>0</p>
     <input type='button' value='+' class='qtyplus' onClick={()=>this.increase(item)} field='quantity' />
                     </div>
                 </div>
             })
-            appetizersmenu = <div><h2>Appetizers Menu:</h2> <div class="rowCard">{appetizersmenu}<br/><hr/></div></div>
+            appetizersmenu = <div><h3>Appetizers Menu:</h3> <div class="rowCard">{appetizersmenu}</div><br/><hr/></div>
         }
 
    
@@ -277,7 +283,7 @@ console.log('Herer in the redirectHomeeeeeeeeeeeeeeeeeeee')
             {redirectVar}
             <div class="section">
 
-            <h1>{this.state.rest_name}</h1>
+            <h1 align="center"><i>{this.state.rest_name}</i></h1>
 
             {breakfastmenu}
             {lunchmenu}

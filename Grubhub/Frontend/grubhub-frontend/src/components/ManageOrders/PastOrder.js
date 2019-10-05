@@ -16,7 +16,7 @@ render(){
   return <div> 
   
   <h4><b>Customer Name:</b>{element.cust_fname} {element.cust_lname} <b><i>Order ID : {element.orderid} </i></b></h4> 
-     
+  <p>Customer Address:{element.cust_address}</p>
   <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -46,8 +46,8 @@ Status:<font color="red">{element.status}</font>
       })
 
     return(
-        <div>  <div align="right"><button class="btn btn-danger" onClick={this.props.switchback}>View Current Orders</button>  </div>
-        <h2 align="center">Your Past Orders </h2>
+        <div>  <div ><button class="btn btn-danger" onClick={this.props.switchback}>View Current Orders</button>  </div>
+        <h2 ><b>Your Past Orders!! </b></h2>
          
  
  {orders}

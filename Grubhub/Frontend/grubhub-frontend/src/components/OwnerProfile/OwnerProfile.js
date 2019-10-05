@@ -12,6 +12,9 @@ class OwnerProfile extends Component{
 
 constructor(){
 super();
+this.state=({
+  image: null
+})
 console.log('Inside Construtor!');
 }
 
@@ -44,7 +47,14 @@ componentWillMount(){
 this.props.loadProfileData({id:loggedinID,type:'owner'});
 
 }
+ImageChangedHandler = (event) => {
+  this.setState({
+    image: event.target.files[0],
+    loaded: 0,
+  })
 
+  console.log('State status', this.state)
+}
 changeName=()=>{
     let div = document.getElementById("nameedit");
     console.log(div);
@@ -57,6 +67,62 @@ changeName=()=>{
   }
 
 }
+
+changeImage=()=>{
+  let div = document.getElementById("imageedit");
+  console.log(div);
+if (div.style.display === "none") {
+  div.style.display = "block";
+} 
+
+else {
+  div.style.display = "none";
+}
+
+}
+
+changeRestImage=()=>{
+  let div = document.getElementById("imageRestedit");
+  console.log(div);
+if (div.style.display === "none") {
+  div.style.display = "block";
+} 
+
+else {
+  div.style.display = "none";
+}
+
+}
+
+imageUpload = (e, menu) => {
+
+  let loggedinID = cookie.load('owner_id')
+  console.log('Cookie',loggedinID)
+
+ 
+  e.preventDefault()
+
+  let data = { image: this.state.image, menu_id: "",id:loggedinID,type:"Owner" }
+  console.log('Data to be uploaded', data);
+this.props.uploadMenu(data);
+
+}
+
+imageRestUpload = (e, menu) => {
+
+  let loggedinID = cookie.load('restaurant_id')
+  let loggedOwnerID = cookie.load('owner_id')
+  console.log('Cookie',loggedinID)
+
+ 
+  e.preventDefault()
+
+  let data = { image: this.state.image, menu_id: "",id:loggedOwnerID,restid:loggedinID,type:"Restaurant" }
+  console.log('Data to be uploaded', data);
+this.props.uploadMenu(data);
+
+}
+
 
 changeEmail=()=>{
     let div = document.getElementById("emailEdit");
@@ -185,6 +251,54 @@ changeNumber=()=>{
         <br/>
       
         <hr/>
+        <div >
+            <div class='imageedit' >
+                Image:
+                <br/>
+              {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
+              <img src={'http://localhost:3001/' + this.props.owner_image} style={{ height: "200px", width: "200px" }}></img>
+                <a onClick={this.changeImage} class='customALign'>Edit</a>
+            </div>
+            <div id='imageedit' style={{display : 'none'}}>
+            <form onSubmit={(e, menu_id) => this.imageUpload(e, menu_id )}>
+            <div class="form-group">
+            Select image to upload:
+    <input type="file" id="image" name="image" onChange={this.ImageChangedHandler} />
+           
+         </div>
+         <input type="submit" value="Upload Image" class="btn btn-primary" name="submit" />
+</form>
+  &nbsp;  &nbsp;  &nbsp;
+  <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeImage}>Close</button>
+            </div>
+        </div>
+        <br></br>
+        <hr></hr>
+        <div >
+            <div class='imageRestedit' >
+                Restaurant Image:
+                <br/>
+              {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
+              <img src={'http://localhost:3001/' + this.props.rest_image} style={{ height: "200px", width: "200px" }}></img>
+                <a onClick={this.changeRestImage} class='customALign'>Edit</a>
+            </div>
+            <div id='imageRestedit' style={{display : 'none'}}>
+            <form onSubmit={(e, menu_id) => this.imageRestUpload(e, menu_id )}>
+            <div class="form-group">
+            Select image to upload:
+    <input type="file" id="image" name="image" onChange={this.ImageChangedHandler} />
+           
+         </div>
+         <input type="submit" value="Upload Image" class="btn btn-primary" name="submit" />
+</form>
+  &nbsp;  &nbsp;  &nbsp;
+  <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeRestImage}>Close</button>
+            </div>
+        </div>
+        <br></br>
+        <hr></hr>
+
+
         <div>
         <div class='emailedit'>
             <div>
@@ -319,7 +433,7 @@ changeNumber=()=>{
 const mapState = (store) =>{
   console.log('OwnerProfile Props',store)
     return{
-  
+      owner_image:store.owner_image,
       owner_email:store.owner_email,
       owner_fname:store.owner_fname,
       owner_lname:store.owner_lname,
@@ -352,6 +466,7 @@ const mapState = (store) =>{
     valueChangeObserver:(e) => dispach(actions.valueMapper(e)),
     loadProfileData:(data)=>dispach(actions.loadProfileData(data)),
     updateProfileData:(data)=>dispach(actions.updateProfileData(data)),
+    uploadMenu:(data)=>dispach(actions.uploadMenu(data))    //uploadMenu
     // decAge:() => dispach({type:'Agedo'})
   }
   }

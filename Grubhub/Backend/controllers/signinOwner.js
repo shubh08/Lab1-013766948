@@ -36,7 +36,10 @@ const signinOwn = (req, res, connPool, bcrypt) =>{
                                     console.log('Restaurant Details',resultRest);
                                     res.cookie('owner_id', result[0].owner_id, { maxAge: 900000, httpOnly: false, path: '/' });
                                     res.cookie('owner_id_email', result[0].owner_email, { maxAge: 900000, httpOnly: false, path: '/' });
+                                     res.cookie('rest_name', resultRest[0].rest_name, { maxAge: 900000, httpOnly: false, path: '/' });
                                     res.cookie('restaurant_id', resultRest[0].restaurant_id, { maxAge: 900000, httpOnly: false, path: '/' });
+                                    res.cookie('owner_fname', result[0].owner_fname, { maxAge: 900000, httpOnly: false, path: '/' });
+                                    res.cookie('owner_lname', result[0].owner_lname, { maxAge: 900000, httpOnly: false, path: '/' });
                                     // req.session.user = user;
                                  const successLogin  = { ...result[0], ...resultRest[0] }
                                     successLogin.type='owner';
