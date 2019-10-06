@@ -24,6 +24,9 @@ e.preventDefault()
             redirectVar = <Redirect to= "/restaurant/manage/profile"/>
         }
         
+        else if (cookie.load('cust_id')) {
+            redirectVar = <Redirect to="/customer/home" />
+          }
 
 
         else if (this.props.loginStatus === 'success') {

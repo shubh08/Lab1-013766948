@@ -43,7 +43,9 @@ class UpcomingOrder extends Component{
     render(){
 
     console.log('Upcoming Orders::',this.props.upComingOrderData)
-    let orders =  this.props.upComingOrderData.map((element)=>{
+    let orders = ""
+    if(this.props.upComingOrderData.length>0){
+     orders =  this.props.upComingOrderData.map((element)=>{
       if(element.status!='Delivered')  {         
   return <div> 
     <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
@@ -73,6 +75,11 @@ return <tr>
   <br></br><hr></hr>
    </div>}
       })
+    }
+
+    else{
+      orders = <h3 >No Orders yet!!</h3>
+    }
       
         return(  <div class="content">
           

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './signup.css';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions'
+import cookie from 'react-cookies';
+import {Redirect} from 'react-router';
 
 class OwnerSignup extends Component {
 
@@ -23,13 +25,26 @@ class OwnerSignup extends Component {
     render(){
 
         let signUpStatus ;
-        if (this.props.loginStatus==='failure') {
+        let redirectVar = null;
+
+        if(cookie.load('owner_id')){
+            redirectVar = <Redirect to= "/restaurant/manage/profile"/>
+        }
+        
+        else if (cookie.load('cust_id')) {
+          redirectVar = <Redirect to="/customer/home" />
+        }
+
+        else if (this.props.loginStatus==='failure') {
             signUpStatus = <div id='invalidLogin'><h2><font color="red">Email id already exists!</font></h2></div>;
           }
           else if(this.props.loginStatus==='success')
-          signUpStatus = <div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div>   
+        { signUpStatus = <div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div> 
+        document.getElementById('owner_signup').reset();}  
+
         return(
-             <div>      
+             <div>     
+               {redirectVar} 
                <nav class="navbar navbar-default navbar-fixed-top">
         
         <div class="navbar-header">
@@ -38,7 +53,7 @@ class OwnerSignup extends Component {
     </nav>
                 <div className='logincontainer'>
                 {signUpStatus}
-                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))}>
+                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))} id="owner_signup">
                     <h2><b>Create your account</b></h2>
                 <div className="form-row">
     <div className="form-group col-md-6">
@@ -99,7 +114,7 @@ const mapState = (store) =>{
   return{
     valueChangeHandler:(e) => dispach(actions.valueMapper(e)),
     signUp:(dataSignup)=>dispach(actions.signUp(dataSignup))
-    // decAge:() => dispach({type:'Agedo'})
+   
   }
   }
   

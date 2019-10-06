@@ -3,6 +3,7 @@ import './signup.css';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions'
+import cookie from 'react-cookies';
 class Signup extends Component {
 
 
@@ -22,16 +23,30 @@ class Signup extends Component {
     render(){
 
         let signUpStatus ;
-     
-        if (this.props.loginStatus==='failure') {
+        let redirectVar = null;
+        if (cookie.load('cust_id')) {
+          redirectVar = <Redirect to="/customer/home" />
+        }
+
+        
+        else if(cookie.load('owner_id')){
+          redirectVar = <Redirect to= "/restaurant/manage/profile"/>
+      }
+        else if (this.props.loginStatus==='failure') {
             signUpStatus = <div id='invalidLogin'><h2><font color="red">Email id already exists!</font></h2></div>;
           }
           else if(this.props.loginStatus==='success')
-          signUpStatus = <div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div>     
+        {  signUpStatus = <div id='invalidLogin'><p><font color="green">Account created successfully. Please login with your username and password!</font></p></div>
+        document.getElementById('cust_signup').reset();
+      }
+     
+
+    
           
         return(
            
              <div>      
+               {redirectVar}
                <nav class="navbar navbar-default navbar-fixed-top">
         
         <div class="navbar-header">
@@ -40,7 +55,7 @@ class Signup extends Component {
     </nav>
                 <div className='logincontainer'>
                 {signUpStatus}
-                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))} >
+                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))} id="cust_signup" >
                     <h2><b>Create your account</b></h2>
                 <div className="form-row">
     <div className="form-group col-md-6">

@@ -7,6 +7,7 @@ import cookie from 'react-cookies';
 import { Link } from 'react-router-dom';
 
 
+
 let menu_uploaded = ""
 let menu_name=""
 let menu_description=""
@@ -91,6 +92,7 @@ class ManageMenu extends Component {
 
 
   updateAdd = () => {
+    document.getElementById('menuadd').reset();
     this.setState({
       menu_name: "",
       menu_price: "",
@@ -189,9 +191,9 @@ class ManageMenu extends Component {
 
   render() {
 
-
-
-    let menuArray = this.props.menuData.map((Menu) => {
+    let menuArray = []
+    if(this.props.menuData!==undefined){
+    menuArray = this.props.menuData.map((Menu) => {
 
       let imgURL = 'http://localhost:3001/' + Menu.menu_image
       let menu_id = Menu.menu_id
@@ -221,7 +223,7 @@ class ManageMenu extends Component {
       </li>
 
     });
-
+  }
 
     let redirectVar = null
 
@@ -245,6 +247,7 @@ class ManageMenu extends Component {
 
       <div class="col-md-4 text-center">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={this.updateAdd}>Add Menu</button>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><Link to="/restaurant/manageSection" ><u>Back To Manage Section</u></Link>
       </div>
 
       <ul class="list-group sectionul">
@@ -263,7 +266,7 @@ class ManageMenu extends Component {
               <h4 class="modal-title">Add Menu Details</h4>
             </div>
             <div class="modal-body">
-              <form >
+              <form id="menuadd" >
                 <div class="form-group">
                   <label for="menu_name">Enter Menu Name</label>
                   <input type="text" class="form-control" id="menu_name" name="menu_name" onChange={this.valueChangedHandler} required />

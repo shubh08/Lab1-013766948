@@ -52,7 +52,7 @@ class MenuView extends Component {
     }
 
     redirectHome = ()=>{
-console.log('Herer in the redirectHomeeeeeeeeeeeeeeeeeeee')
+console.log('Herer in the redirectHomeeeee')
         let reDirect = <Redirect to={{
             pathname: '/customer/home'            
         }}
@@ -102,11 +102,11 @@ let rest_name = cookie.load('rest_name')
 
         this.props.restaurantData.forEach((restItem) => {
 
-            if (restItem.section_name === 'Breakfast')
+            if ((restItem.section_name).toLowerCase() === 'breakfast')
                 breakFast.push(restItem)
-            else if (restItem.section_name === 'Lunch')
+            else if ((restItem.section_name).toLowerCase() === 'lunch')
                 lunch.push(restItem)
-            else if (restItem.section_name === 'Appetizers')
+            else if ((restItem.section_name).toLowerCase() === 'appetizers')
                 appetizers.push(restItem)
         });
 

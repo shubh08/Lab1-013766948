@@ -24,9 +24,12 @@ e.preventDefault()
       redirectVar = <Redirect to="/customer/home" />
     }
 
-    // if(this.props.loginStatus==='success'){
-    //     redirectVar = <Redirect to= "/customer"/>
-    // }
+    
+    else if(cookie.load('owner_id')){
+      redirectVar = <Redirect to= "/restaurant/manage/profile"/>
+  }
+  
+
     console.log('Redirected', redirectVar);
     return (
       <div >
@@ -76,7 +79,7 @@ const mapDispach = (dispach) => {
   return {
     valueChangeHandler: (e) => dispach(actions.valueMapper(e)),
     submitLogin: (data) => dispach(actions.login(data))
-    // decAge:() => dispach({type:'Agedo'})
+    
   }
 }
 

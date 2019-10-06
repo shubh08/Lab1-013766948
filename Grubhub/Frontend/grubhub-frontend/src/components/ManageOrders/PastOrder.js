@@ -11,7 +11,9 @@ constructor(props)
 render(){
 
     console.log('Upcoming Orders::',this.props.pastData)
-    let orders =  this.props.pastData.map((element)=>{
+    let orders = ""
+    if(this.props.pastData.length>0){
+    orders =  this.props.pastData.map((element)=>{
     if(element.status==='Delivered') {        
   return <div> 
   
@@ -43,7 +45,11 @@ Status:<font color="red">{element.status}</font>
   <br></br><br/><hr/>
   </div>}
 
-      })
+      })}
+
+      else{
+        orders = <h3 >No Orders yet!!</h3>
+      }
 
     return(
         <div>  <div ><button class="btn btn-danger" onClick={this.props.switchback}>View Current Orders</button>  </div>

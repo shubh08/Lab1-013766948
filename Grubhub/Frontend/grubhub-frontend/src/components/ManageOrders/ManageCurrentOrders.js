@@ -58,7 +58,9 @@ class ManageCurrentOrders extends Component{
     render(){
 
     console.log('Upcoming Orders::',this.props.upComingRestaurantOrderData)
-    let orders =  this.props.upComingRestaurantOrderData.map((element)=>{
+    let orders = ""
+    if(this.props.upComingRestaurantOrderData.length>0){
+    orders  =  this.props.upComingRestaurantOrderData.map((element)=>{
       if(element.status!='Delivered') {
                
   return <div>
@@ -110,10 +112,12 @@ Status:<font color="red">{element.status}</font>
 <br></br><br/><hr/>
   </div>
       }
-      })
-      
+      })}
+      else{
+        orders = <h3>No Orders yet!!</h3>
+      }
         return(  <div class="content">
-      {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData} switchback={this.setPastView}></PastOrder>: <div> <h2><b>Your Upcoming Orders!!</b> <button class="btn btn-danger" orderData={this.props.upComingRestaurantOrderData} onClick={this.setPastView}>View Past Orders</button></h2> 
+      {this.state.pastOrderView==true?<PastOrder pastData={ this.props.upComingRestaurantOrderData} switchback={this.setPastView}></PastOrder>: <div>  <h2><b>Your Upcoming Orders!!</b> <button class="btn btn-danger" orderData={this.props.upComingRestaurantOrderData} onClick={this.setPastView}>View Past Orders</button></h2> 
          
  
  {orders}

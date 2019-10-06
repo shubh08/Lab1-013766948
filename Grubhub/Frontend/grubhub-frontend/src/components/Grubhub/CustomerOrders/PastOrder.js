@@ -13,7 +13,9 @@ render(){
 
 
     console.log('Past Orders::',this.props.pastData)
-    let orders =  this.props.pastData.map((element)=>{
+    let orders = ""
+    if(this.props.pastData.length>0){
+     orders =  this.props.pastData.map((element)=>{
     if(element.status==='Delivered') {        
   return <div>  <h2><b>Restaurant Name:</b>{element.restname} <b><i>Order ID : {element.orderid} </i></b></h2>
   <table class="table">
@@ -45,7 +47,10 @@ return  <tr>
   </div>}
 
       })
-
+    }
+else{
+  orders = <h3 >No Orders yet!!</h3>
+}
     return(
         <div> 
           <div> <button class="btn btn-primary float-right" onClick={this.props.switchback}>View Current Orders</button>  </div>

@@ -33,7 +33,7 @@ class Root extends Component {
                 
                 
                 <Route path="/restaurant" component={NavbarOwner}/>
-                <Route path="/restaurant/home" component={NavbarOwner}/>  
+                <Route path="/restaurant/home" component={OwnerProfile}/>  
                 
 
                 <Route path="/restaurant/manageSection" component={ManageSection}/>   
