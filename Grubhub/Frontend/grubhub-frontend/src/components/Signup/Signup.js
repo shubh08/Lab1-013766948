@@ -6,7 +6,9 @@ import * as actions from '../actions/actions'
 class Signup extends Component {
 
 
-    getDataSignup = ()=>{
+    getDataSignup = (e)=>{
+
+      e.preventDefault();
 
         return {
             fname:this.props.cust_fname,
@@ -38,7 +40,7 @@ class Signup extends Component {
     </nav>
                 <div className='logincontainer'>
                 {signUpStatus}
-                    <form>
+                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))} >
                     <h2><b>Create your account</b></h2>
                 <div className="form-row">
     <div className="form-group col-md-6">
@@ -60,9 +62,9 @@ class Signup extends Component {
           <label for="cust_pass">Password</label>
       <input type="password" className="form-control" id="cust_pass" name="cust_pass" onChange = {this.props.valueChangeHandler} placeholder="Password" required/>
           </div>  
-         
+          <button type="submit" className="btn btn-primary">Create your account</button>
           </form>
-          <button type="submit" onClick = {()=>this.props.signUp(this.getDataSignup())} className="btn btn-primary">Create your account</button>
+         
           <br></br>
           <p id='account'><font>Have an account? <a href='login'>Sign in</a></font></p>
           <p class="u-text-center caption"><span>By creating your Grubhub account, you agree to the</span> <a href="/legal/terms-of-use" target="_blank" rel="noopener">Terms of Use</a> <span>and</span> <a href="/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.</p>

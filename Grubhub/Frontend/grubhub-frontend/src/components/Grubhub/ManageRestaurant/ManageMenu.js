@@ -169,16 +169,20 @@ class ManageMenu extends Component {
   componentWillMount() {
 
    
+    console.log('State bar is ',this.props.location.state)
+    if(this.props.location.state){
+      let sectid = this.props.location.state.sectionid;
+      let sectionname = this.props.location.state.sectionname;
+  
+      this.setState({
+        sectionid: sectid,
+        sectionname: sectionname
+      })
+      console.log('here in the will mount',this.state)
+      this.props.loadMenuData({ id: sectid });
 
-    let sectid = this.props.location.state.sectionid;
-    let sectionname = this.props.location.state.sectionname;
+    }
 
-    this.setState({
-      sectionid: sectid,
-      sectionname: sectionname
-    })
-    console.log('here in the will mount',this.state)
-    this.props.loadMenuData({ id: sectid });
 
   }
 
@@ -262,16 +266,16 @@ class ManageMenu extends Component {
               <form >
                 <div class="form-group">
                   <label for="menu_name">Enter Menu Name</label>
-                  <input type="text" class="form-control" id="menu_name" name="menu_name" onChange={this.valueChangedHandler} />
+                  <input type="text" class="form-control" id="menu_name" name="menu_name" onChange={this.valueChangedHandler} required />
                 </div>
                 <div class="form-group">
                   <label for="menu_description">Enter Menu Description</label>
-                  <input type="text" class="form-control" id="menu_description" name="menu_description" onChange={this.valueChangedHandler} />
+                  <input type="text" class="form-control" id="menu_description" name="menu_description" onChange={this.valueChangedHandler} required />
                 </div>
 
                 <div class="form-group">
                   <label for="menu_price">Enter Menu Price</label>
-                  <input type="text" class="form-control" id="menu_price" name="menu_price" onChange={this.valueChangedHandler} />
+                  <input type="number" class="form-control" id="menu_price" name="menu_price" onChange={this.valueChangedHandler} required/>
                 </div>
                
               </form>
@@ -313,7 +317,7 @@ class ManageMenu extends Component {
 
                 <div class="form-group">
                   <label for="menu_price">Enter Menu Price</label>
-                  <input type="text" class="form-control" id="menu_price" name="menu_price" autocomplete="off" placeholder={menu_price} onChange={this.valueChangedHandler} />
+                  <input type="number" class="form-control" id="menu_price" name="menu_price" autocomplete="off" placeholder={menu_price} onChange={this.valueChangedHandler} />
                 </div>
               
               </form>

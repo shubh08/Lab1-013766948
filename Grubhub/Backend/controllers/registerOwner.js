@@ -28,7 +28,7 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                 console.log('Inside bcrypt');
                 encryptPass = hash;
                 console.log('Hash Values',hash);
-                let queryTest = 'insert into restaurant_owner_details(owner_fname,owner_lname,owner_email,owner_hash,owner_image) values(?, ?, ?, ?)';
+                let queryTest = 'insert into restaurant_owner_details(owner_fname,owner_lname,owner_email,owner_hash,owner_image) values(?, ?, ?, ?,?)';
                
                 console.log('Query value',queryTest);
             conn.query(queryTest,[fname,lname,email,encryptPass,'default.png'],(error,res)=>{
@@ -40,7 +40,7 @@ const registerOwn = (req, res, connPool, bcrypt)=>{
                     console.log('Owner Details created',res);
                     owner_id = res.insertId;  
                     console.log('Owner ID',owner_id);
-                    let queryTest = 'insert into restaurant(rest_name,rest_zipcode,owner_id,rest_image) values(?, ?, ?)';
+                    let queryTest = 'insert into restaurant(rest_name,rest_zipcode,owner_id,rest_image) values(?, ?, ?,?)';
                     conn.query(queryTest,[restname,zip,owner_id,'default.png'],(error,res)=>{
                         if(error)
                         {

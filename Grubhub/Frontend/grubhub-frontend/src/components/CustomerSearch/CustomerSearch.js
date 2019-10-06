@@ -35,21 +35,6 @@ class CustomerSearch extends Component{
       searchTerm :x
     })
     
-
-    // console.log('Search Array is',searchArr,'Items search term is',cuisine)
-    // console.log('Props store data is',this.props.searchData)
-    // searchArr = this.props.searchData.map((item)=>{
-    //   console.log('Item is ',item)
-    //   if(item.rest_cuisine===cuisine)
-    //   {
-    //     return item
-    //   }
-    // })
-
-    // this.setState({
-    // })
-
-    // console.log('Values in the array',searchArr)
   }
   
   
@@ -82,11 +67,14 @@ viewSection = (data)=>{
   
     componentWillMount(){
   
+      if(this.props.location.state){
         let searchBox = this.props.location.state.searchBox;
         this.setState({
             searchBox:searchBox
         })
         this.props.searchDishes({searchTerm:searchBox});
+      }
+        
    
    }
   

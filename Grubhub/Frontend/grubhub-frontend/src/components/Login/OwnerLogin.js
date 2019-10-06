@@ -8,8 +8,8 @@ import * as actions from '../actions/actions'
 
 
 class OwnerLogin extends Component {
-    getDataSignup = () => {
-
+    getDataSignup = (e) => {
+e.preventDefault()
         return {
             email: this.props.owner_email,
             pass: this.props.owner_pass,
@@ -41,19 +41,19 @@ class OwnerLogin extends Component {
                 </nav>
                 <div className='logincontainer'>
                     {this.props.loginStatus === 'failure' && <div id='invalidLogin'><p><font color="red">Hey Stranger! We don't recognize that login. Spell check your info and try again!</font></p></div>}
-                    <form  >
+                    <form   onSubmit={(e) => this.props.submitLogin(this.getDataSignup(e))}  >
                         <h3><b>Sign in with your Grubhub account</b></h3>
                         <div className="form-group">
                             <label for="owner_email">Email address</label>
-                            <input type="email" className="form-control" id="owner_email" name="owner_email" onChange={this.props.valueChangeHandler} placeholder="Enter email" />
+                            <input type="email" className="form-control" id="owner_email" name="owner_email" onChange={this.props.valueChangeHandler} placeholder="Enter email"  required="true"/>
                         </div>
                         <div className="form-group">
                             <label for="owner_pass">Password</label>
-                            <input type="password" className="form-control" id="owner_pass" name="owner_pass" onChange={this.props.valueChangeHandler} placeholder="Password" />
+                            <input type="password" className="form-control" id="owner_pass" name="owner_pass" onChange={this.props.valueChangeHandler} placeholder="Password" required="true"/>
                         </div>
-                        
+                        <button type="submit"className="btn btn-danger">Sign in</button>
                     </form >
-                    <button type="submit" onClick={() => this.props.submitLogin(this.getDataSignup())} className="btn btn-danger">Sign in</button>
+                   
                     
                     <p id='account'><font><a href='signup'><b>Create your account</b></a></font></p>
 

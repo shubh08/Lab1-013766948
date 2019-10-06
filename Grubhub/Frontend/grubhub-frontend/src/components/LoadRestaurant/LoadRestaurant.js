@@ -140,25 +140,21 @@ console.log('Herer in the redirectHomeeeeeeeeeeeeeeeeeeee')
 
     componentWillMount() {
 
-        let restaurantid = this.props.location.state.restaurantid;
-        let rest_name = this.props.location.state.rest_name;
-        this.setState({
-            restaurantid: restaurantid,
-            rest_name: rest_name
-        })
-        this.props.loadRestaurant({ id: restaurantid });
+        if(this.props.location.state){
+
+            let restaurantid = this.props.location.state.restaurantid;
+            let rest_name = this.props.location.state.rest_name;
+            this.setState({
+                restaurantid: restaurantid,
+                rest_name: rest_name
+            })
+            this.props.loadRestaurant({ id: restaurantid });
+        }
+
 
     }
 
-    componentDidMount() {
-
-        //   let restaurant_id = cookie.load('restaurant_id')
-
-        //   this.setState({
-        //       restaurant_id:restaurant_id
-        //   })
-
-    }
+  
 
 
     render() {

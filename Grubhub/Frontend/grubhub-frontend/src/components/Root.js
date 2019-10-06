@@ -25,24 +25,16 @@ import CustomerSearch from './CustomerSearch/CustomerSearch';
 import LoadRestaurant from './LoadRestaurant/LoadRestaurant';
 import OrderSuccess from './Grubhub/CustomerOrders/OrderSuccess';
 import MenuView from './ManageOrders/MenuView';
-// import Home from './Home/Home';
-// import Delete from './Delete/Delete';
-// import Create from './Create/Create';
-// import Navbar from './LandingPage/Navbar';
-//Create a Main Component
+
 class Root extends Component {
     render(){
         return(
             <div>
-                {/*Render Different Component based on Route*/}
+                
                 
                 <Route path="/restaurant" component={NavbarOwner}/>
                 <Route path="/restaurant/home" component={NavbarOwner}/>  
-                {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  
-                <Route path="/restaurant/manage/manageOrder" component={ManageRestaurantOrder}/>  */}
-                {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  */}
-
-                {/* <Route path="/restaurant/manage" component={ManageRestaurant}/>  */}
+                
 
                 <Route path="/restaurant/manageSection" component={ManageSection}/>   
                 <Route path="/restaurant/managePastOrders" component={ManagePastOrders}/>  
@@ -64,18 +56,14 @@ class Root extends Component {
                  <Route path="/customer/home" component={CustomerHome}/>
                  <Route path="/customer/search" component={CustomerSearch}/> 
                  <Route path="/customer/loadRestaurant" component={LoadRestaurant}/>  
-{/*                 
-                <Route path="/customer/login" component={Login}/>
-                <Route path="/customer/create-account" component={Signup}/> */}
+
                 <Route path="/customer/manageCustomer" component={ManageCustomer}/>
                 <Route path="/customer/manageCustomer/pastOrder" component={PastOrder}/>
                 <Route path="/customer/manageCustomer/upcomingOrder" component={UpcomingOrder}/>
                 <Route path="/customer/OrderSuccess" component={OrderSuccess}/>
                 <Route path="/customer/manageCustomer/customerProfile" component={CustomerProfile}/>
 
-                {/* <Route path="/home" component={Home}/>
-                <Route path="/delete" component={Delete}/>
-                <Route path="/create" component={Create}/> */}
+             
             </div>
         )
     }

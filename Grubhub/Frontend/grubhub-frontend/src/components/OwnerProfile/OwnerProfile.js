@@ -18,7 +18,8 @@ this.state=({
 console.log('Inside Construtor!');
 }
 
-getUploadData = (type)=>{
+getUploadData = (e,type)=>{
+  e.preventDefault();
   console.log('type is',type);
   let loggedinID = cookie.load('owner_id')
   console.log('Cookie',loggedinID)
@@ -233,19 +234,21 @@ changeNumber=()=>{
                 <a onClick={this.changeName} class='customALign'>Edit</a>
             </div>
             <div id='nameedit' style={{display : 'none'}}>
-            <form>
+            <form onSubmit= {(e)=>this.props.updateProfileData(this.getUploadData(e,"name"))}>
   <div class="form-group">
     <label for="owner_fname_holder">First Name:</label>
-    <input type="text" class="form-control" id="owner_fname_holder" onChange = {this.props.valueChangeObserver} name="owner_fname_holder" defaultValue={this.props.owner_fname} placeholder="Enter First Name"/>
+    <input type="text" class="form-control" id="owner_fname_holder" onChange = {this.props.valueChangeObserver} name="owner_fname_holder" defaultValue={this.props.owner_fname} placeholder="Enter First Name" required/>
   </div>
   <div class="form-group">
     <label for="owner_lname_holder">Last Name:</label>
-    <input type="text" class="form-control" id="owner_lname_holder" onChange = {this.props.valueChangeObserver} name="owner_lname_holder" defaultValue={this.props.owner_lname} placeholder="Enter Last Name"/>
+    <input type="text" class="form-control" id="owner_lname_holder" onChange = {this.props.valueChangeObserver} name="owner_lname_holder" defaultValue={this.props.owner_lname} placeholder="Enter Last Name" required/>
   </div>
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("name"))} >Update Name</button> 
+  <button type="submit" class="btn btn-success"  >Update Name</button> 
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeName}>Close</button>
+</form>
+
+ 
             </div>
         </div>
         <br/>
@@ -266,10 +269,11 @@ changeNumber=()=>{
     <input type="file" id="image" name="image" onChange={this.ImageChangedHandler} />
            
          </div>
-         <input type="submit" value="Upload Image" class="btn btn-primary" name="submit" />
-</form>
-  &nbsp;  &nbsp;  &nbsp;
+         <input type="submit" value="Upload Image" class="btn btn-success" name="submit" />
+         &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeImage}>Close</button>
+</form>
+
             </div>
         </div>
         <br></br>
@@ -289,10 +293,11 @@ changeNumber=()=>{
     <input type="file" id="image" name="image" onChange={this.ImageChangedHandler} />
            
          </div>
-         <input type="submit" value="Upload Image" class="btn btn-primary" name="submit" />
-</form>
-  &nbsp;  &nbsp;  &nbsp;
+         <input type="submit" value="Upload Image" class="btn btn-success" name="submit" />
+         &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeRestImage}>Close</button>
+</form>
+ 
             </div>
         </div>
         <br></br>
@@ -310,15 +315,16 @@ changeNumber=()=>{
             </div>
         </div>
         <div id='emailEdit' style={{display : 'none'}}>
-            <form>
+            <form onSubmit = {(e)=>this.props.updateProfileData(this.getUploadData(e,"email"))}>
   <div class="form-group">
     <label for="owner_email_holder">Email address:</label>
-    <input type="email" class="form-control" name="owner_email_holder" onChange = {this.props.valueChangeObserver}  defaultValue={defaultEmail} id="owner_email_holder"/>
+    <input type="email" class="form-control" name="owner_email_holder" onChange = {this.props.valueChangeObserver}  defaultValue={defaultEmail} id="owner_email_holder" required/>
   </div>
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("email"))}>Update Email</button>
+  <button type="submit" class="btn btn-primary" >Update Email</button>
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeEmail}>Close</button>
+</form>
+
             </div>
         </div>
         <br/>
@@ -336,16 +342,16 @@ changeNumber=()=>{
         </div>
 
         <div id='numberEdit' style={{display : 'none'}}>
-            <form>
+            <form onSubmit = {(e)=>this.props.updateProfileData(this.getUploadData(e,"number"))}>
   <div class="form-group">
     <label for="owner_number_holder">Phone Number:</label>
-    <input type="number" class="form-control" name="owner_number_holder" onChange = {this.props.valueChangeObserver}  defaultValue={defaultNumber} id="owner_number_holder"/>
+    <input type="number" class="form-control" name="owner_number_holder" onChange = {this.props.valueChangeObserver}  defaultValue={defaultNumber} id="owner_number_holder" required/>
   </div>
- 
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("number"))}>Update Number</button>
+  <button type="submit" class="btn btn-success" >Update Number</button>
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeNumber}>Close</button>
+</form>
+
             </div>
 
         </div>
@@ -362,15 +368,16 @@ changeNumber=()=>{
                 <a onClick={this.changeRestName} class='customALign'>Edit</a>
             </div>
             <div id='restedit' style={{display : 'none'}}>
-            <form>
+            <form onSubmit = {(e)=>this.props.updateProfileData(this.getUploadData(e,"restname"))}>
   <div class="form-group">
     <label for="rest_name_holder">Restaurant Name:</label>
-    <input type="text" class="form-control" id="rest_name_holder" onChange = {this.props.valueChangeObserver} name="rest_name_holder" defaultValue={this.props.rest_name} placeholder="Enter Restaurant Name"/>
+    <input type="text" class="form-control" id="rest_name_holder" onChange = {this.props.valueChangeObserver} name="rest_name_holder" defaultValue={this.props.rest_name} placeholder="Enter Restaurant Name" required/>
   </div>
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("restname"))} >Update Restaurant Name</button> 
+  <button type="submit" class="btn btn-success" >Update Restaurant Name</button> 
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeRestName}>Close</button>
+</form>
+
             </div>
         </div>
         <br/>
@@ -385,15 +392,16 @@ changeNumber=()=>{
                 <a onClick={this.changeRestZip} class='customALign'>Edit</a>
             </div>
             <div id='restzip' style={{display : 'none'}}>
-            <form>
+            <form onSubmit = {(e)=>this.props.updateProfileData(this.getUploadData(e,"restzip"))}>
   <div class="form-group">
     <label for="rest_zipcode_holder">Restaurant Zipcode:</label>
-    <input type="text" class="form-control" id="rest_zipcode_holder" onChange = {this.props.valueChangeObserver} name="rest_zipcode_holder" defaultValue={this.props.rest_zipcode} placeholder="Enter Restaurant ZipCode"/>
+    <input type="number" class="form-control" id="rest_zipcode_holder" onChange = {this.props.valueChangeObserver} name="rest_zipcode_holder" defaultValue={this.props.rest_zipcode} placeholder="Enter Restaurant ZipCode" required/>
   </div>
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("restzip"))} >Update Restaurant ZipCode</button> 
+  <button type="submit" class="btn btn-success"  >Update Restaurant ZipCode</button> 
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeRestZip}>Close</button>
+</form>
+
             </div>
         </div>
 
@@ -409,15 +417,16 @@ changeNumber=()=>{
                 <a onClick={this.changeRestCuisine} class='customALign'>Edit</a>
             </div>
             <div id='restcuisine' style={{display : 'none'}}>
-            <form>
+            <form onSubmit = {(e)=>this.props.updateProfileData(this.getUploadData(e,"restcuisine"))}>
   <div class="form-group">
     <label for="rest_cuisine_holder">Restaurant Cuisine:</label>
-    <input type="text" class="form-control" id="rest_cuisine_holder" onChange = {this.props.valueChangeObserver} name="rest_cuisine_holder" defaultValue={this.props.rest_cuisine} placeholder="Enter Restaurant Cuisine"/>
+    <input type="text" class="form-control" id="rest_cuisine_holder" onChange = {this.props.valueChangeObserver} name="rest_cuisine_holder" defaultValue={this.props.rest_cuisine} placeholder="Enter Restaurant Cuisine" required/>
   </div>
-</form>
-<button type="submit" class="btn btn-primary" onClick = {()=>this.props.updateProfileData(this.getUploadData("restcuisine"))} >Update Cuisine</button> 
+  <button type="submit" class="btn btn-success" >Update Cuisine</button> 
   &nbsp;  &nbsp;  &nbsp;
   <button class="btn btn-danger" style={{display: 'inline-block'}} onClick={this.changeRestCuisine}>Close</button>
+</form>
+
             </div>
         </div>
       </div>

@@ -5,8 +5,9 @@ import * as actions from '../actions/actions'
 
 class OwnerSignup extends Component {
 
-    getDataSignup = ()=>{
+    getDataSignup = (e)=>{
 
+      e.preventDefault()
         return {
             fname:this.props.owner_fname,
             lname:this.props.owner_lname ,
@@ -37,7 +38,7 @@ class OwnerSignup extends Component {
     </nav>
                 <div className='logincontainer'>
                 {signUpStatus}
-                    <form>
+                    <form onSubmit = {(e)=>this.props.signUp(this.getDataSignup(e))}>
                     <h2><b>Create your account</b></h2>
                 <div className="form-row">
     <div className="form-group col-md-6">
@@ -51,8 +52,8 @@ class OwnerSignup extends Component {
     </div>
 </div>
       <div className="form-group">
-          <label for="owner_email">owner_Email address</label>
-    <input type="email" className="form-control" id="owner_email" name="owner_email" onChange = {this.props.valueChangeHandler} placeholder="Enter owner_email" required/>
+          <label for="owner_email">Email address</label>
+    <input type="email" className="form-control" id="owner_email" name="owner_email" onChange = {this.props.valueChangeHandler} placeholder="Enter email" required/>
           </div>      
 
           <div className="form-group">
@@ -67,9 +68,9 @@ class OwnerSignup extends Component {
     <label for="rest_zipcode">Zipcode</label>
     <input type="number" className="form-control" id="rest_zipcode" name="rest_zipcode"  onChange = {this.props.valueChangeHandler} placeholder="Zip Code" required/>
   </div>
-         
+  <button type="submit" className="btn btn-primary">Create your account</button> 
           </form>
-          <button type="submit" onClick = {()=>this.props.signUp(this.getDataSignup())} className="btn btn-primary">Create your account</button>
+        
           
           <br></br>
           <p id='account'><font>Have an account? <a href='login'>Sign in</a></font></p>

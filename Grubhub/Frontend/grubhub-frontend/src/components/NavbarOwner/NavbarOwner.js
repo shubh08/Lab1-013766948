@@ -46,7 +46,7 @@ class NavbarOwner extends Component {
         
           <div class="navbar-header">
             
-            <a class="navbar-brand navbar-left" href="#"><p><font color="red"><b>GRUBHUB</b></font></p></a>
+            <a class="navbar-brand navbar-left" href="/"><p><font color="red"><b>GRUBHUB</b></font></p></a>
           </div>
         
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

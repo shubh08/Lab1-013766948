@@ -25,7 +25,7 @@ connPool.getConnection((error,conn)=>{
                 encryptPass = hash;
                 console.log('encrypt',encryptPass);
                 console.log('Type of',typeof encryptPass,encryptPass.length);
-                let queryTest = 'insert into customer_info(cust_fname,cust_lname,cust_email,cust_hash,cust_image) values (?, ?, ?, ?)';
+                let queryTest = 'insert into customer_info(cust_fname,cust_lname,cust_email,cust_hash,cust_image) values (?, ?, ?, ?,?)';
                 //let name = fname+' '+lname
                 console.log(queryTest);
                 conn.query(queryTest,[fname,lname,email,encryptPass,'default.png'],(error,resultsignup)=>{
