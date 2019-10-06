@@ -35,8 +35,7 @@ const saveImagetoMenu = require('./controllers/saveImagetoMenu');
 const saveImagetoCustomer = require('./controllers/saveImagetoCustomer'); 
 const saveImagetoOwner = require('./controllers/saveImagetoOwner');  //saveImagetoCustomer  //saveImagetoOwner //saveImagetoRestaurant
 const saveImagetoRestaurant = require('./controllers/saveImagetoRestaurant');
-// const profile = require('./controllers/profile');
-// const image = require('./controllers/image');
+
 
 const saltRounds = 10;
 
@@ -68,16 +67,14 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 //use express session to maintain session data
 app.use(session({
-    secret: 'cmpe273_kafka_passport_mongo',
+    secret: 'cmpe273_grubhub',
     resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request
     saveUninitialized: false, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
     duration: 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
     activeDuration: 5 * 60 * 1000
 }));
 
-// app.use(bodyParser.urlencoded({
-//     extended: true
-//   }));
+
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname+'/uploads'));
@@ -92,48 +89,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-let Users = [{
-    username: "admin",
-    password: "admin"
-}]
-
-let books = [
-    { "BookID": "1", "Title": "Book 1", "Author": "Author 1" },
-    { "BookID": "2", "Title": "Book 2", "Author": "Author 2" },
-    { "BookID": "3", "Title": "Book 3", "Author": "Author 3" }
-]
-
-// //Route to handle Post Request Call
-// app.post('/login', function (req, res) {
-
-//     // Object.keys(req.body).forEach(function(key){
-//     //     req.body = JSON.parse(key);
-//     // });
-//     // let username = req.body.username;
-//     // let password = req.body.password;
-//     console.log("Inside Login Post Request");
-//     //console.log("Req Body : ", username + "password : ",password);
-//     console.log("Req Body : ", req.body);
-//     Users.filter(function (user) {
-//         if (user.username === req.body.username && user.password === req.body.password) {
-//             res.cookie('cookie', "admin", { maxAge: 900000, httpOnly: false, path: '/' });
-//             req.session.user = user;
-//             res.writeHead(200, {
-//                 'Content-Type': 'text/plain'
-//             })
-//             res.end("Successful Login");
-//         }
-
-//         else{
-//             res.writeHead(400, {
-//                 'Content-Type': 'text/plain'
-//             })
-//             res.end("UnSuccessful Login");
-//         }
-//     })
-
-
-// });
 
 // User signup
 
@@ -232,36 +187,21 @@ app.post('/deleteSection', function (req, res) {
     console.log("Inside delete function");
 
     deleteSection.deleteSection(req, res, connPool)
-    // if(!req.session.user){
-    //     console.log('Inside hererereresndsjdksajkdjaskd');
-    //     res.writeHead(404, {"Content-Type": "text/plain"});
-    //     res.write("404 Not Found\n");
-    //     res.end();
-    //     return;
-    // }
-
-
-    // res.writeHead(200, {
-    //     'Content-Type': 'application/json'
-    // });
-    // console.log('Req Object', req.body);
-    // let responseObj = { resValue: deleteFromBooks(req.params.id) };
-    // console.log("Books : ", JSON.stringify({ responseObj }));
-    // res.end(JSON.stringify(responseObj));
+  
 });
 
 
-//addMenu  addMenu
-app.post('/addMenu',upload.single('menu_image'),(req,res)=>{
-    console.log('File pathhhhhhhhhhhhhhhhhhhhhh--------------------------------------->',req.file)
+//addMenu  
+app.post('/addMenu',(req,res)=>{
+    console.log('File path',req.file)
     addMenu.addMenu(req, res, connPool);
 
 })
 
 
-//Upload  upload
+//Upload  
 app.post('/upload',upload.single('image'),(req,res)=>{
-    console.log('File pathhhhhhhhhhhhhhhhhhhhhh--------------------------------------->',req.body.id)
+    console.log('File path',req.body.id)
     // addMenu.addMenu(req, res, connPool);\
 
     if(req.file){
@@ -358,111 +298,6 @@ app.post('/changeOrderState',(req,res)=>{
 
 })
 
-
-
-//Route to get All Books when user visits the Home Page
-app.get('/home', function (req, res) {
-    console.log('Session',req.session.user);
-    if(!req.session.user){
-        res.writeHead(404, {"Content-Type": "text/plain"});
-        res.write("404 Not Found\n");
-        res.end();
-        return;
-    }
-
-    console.log("Inside Home Login");
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    });
-    console.log("Books : ", JSON.stringify(books));
-    res.end(JSON.stringify(books));
-
-})
-
-// Route to create a delete
-app.delete('/delete/:id', function (req, res) {
-    console.log("Inside delete function");
-
-    if(!req.session.user){
-        console.log('Inside hererereresndsjdksajkdjaskd');
-        res.writeHead(404, {"Content-Type": "text/plain"});
-        res.write("404 Not Found\n");
-        res.end();
-        return;
-    }
-
-
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    });
-    console.log('Req Object', req.body);
-    let responseObj = { resValue: deleteFromBooks(req.params.id) };
-    console.log("Books : ", JSON.stringify({ responseObj }));
-    res.end(JSON.stringify(responseObj));
-});
-
-
-//Route to create and add books
-app.post('/create', function (req, res) {
-    if(!req.session.user){
-        console.log('Inside');
-        res.writeHead(404, {"Content-Type": "text/plain"});
-        res.write("404 Not Found\n");
-        res.end();
-        return;
-    }
-
-    let response;
-    let responseObj = {};
-    console.log('\n Inside Create Post method');
-    let duplicate = false;
-    console.log("Inside Create Post Request");
-    books.filter(function (book) {
-        console.log('\n', book);
-        if (book.BookID === req.body.bookID) {
-            console.log('Duplicate found', book);
-            duplicate = true;
-        }
-    })
-    if (duplicate) {
-        console.log('\n Inside create duplicate')
-        responseObj.bookss = books
-        responseObj.nextComponent = "Failure"
-
-    }
-    else {
-        console.log('\n Inside create not duplicate!');
-        let book = {
-            BookID: req.body.bookID,
-            Title: req.body.title,
-            Author: req.body.author
-        }
-        books.push(book);
-        responseObj.bookss = books
-        responseObj.nextComponent = "Success"
-    }
-    //books = responseObj.bookss;
-
-    console.log('Books updated', books);
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    });
-    console.log("Books : ", JSON.stringify(responseObj));
-    res.end(JSON.stringify(responseObj));
-});
-
-
-deleteFromBooks = (id) => {
-    console.log('Deleting book with id', id);
-    for (let i = 0; i < books.length; i++) {
-        if (books[i].BookID === id) {
-            books.splice(i, 1);
-            return 'success';
-        }
-    }
-    return 'failure';
-}
-
 app.get('/logout',(req,res) => {
     console.log('logout success');
     req.session.destroy((err) => {
@@ -475,6 +310,6 @@ app.get('/logout',(req,res) => {
 });
 
 
-//start your server on port 3001
+
 app.listen(3001);
 console.log("Server Listening on port 3001");
