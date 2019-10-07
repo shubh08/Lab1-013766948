@@ -156,6 +156,7 @@ class LoadRestaurant extends Component {
         let breakfastmenu = null
         let lunchmenu = null
         let appetizersmenu = null
+        let dinnermenu = null
         let currentOrders = null
         let total = 0;
 
@@ -184,6 +185,7 @@ class LoadRestaurant extends Component {
         let breakFast = []
         let lunch = []
         let appetizers = []
+        let dinner = []
 
         this.props.restaurantData.forEach((restItem) => {
 
@@ -193,6 +195,8 @@ class LoadRestaurant extends Component {
                 lunch.push(restItem)
             else if ((restItem.section_name).toLowerCase() === 'appetizers')
                 appetizers.push(restItem)
+            else if ((restItem.section_name).toLowerCase() === 'dinner')
+            dinner.push(restItem)
         });
 
         if (breakFast.length > 0) {
@@ -210,6 +214,26 @@ class LoadRestaurant extends Component {
                 </div> </div>
             })
             breakfastmenu = <div><h3>BreakFast Menu:</h3><div class="rowCard">{breakfastmenu}
+
+            </div>
+                <br /><hr />
+            </div>
+        }
+        if (dinner.length > 0) {
+            dinnermenu = dinner.map((item) => {
+
+                return <div class="columnCard"><div class="card">
+                    <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <h3>{item.menu_name}</h3>
+                    <p>{item.menu_description}</p>
+                    <p>${item.menu_price}</p>
+
+                    <input type='button' value='-' class='qtyminus' onClick={() => this.decrease(item)} field='quantity' />
+                    <p id={item.menu_id}>0</p>
+                    <input type='button' value='+' class='qtyplus' onClick={() => this.increase(item)} field='quantity' />
+                </div> </div>
+            })
+            dinnermenu = <div><h3>Dinner Menu:</h3><div class="rowCard">{dinnermenu}
 
             </div>
                 <br /><hr />
@@ -261,7 +285,7 @@ class LoadRestaurant extends Component {
                 return <li class="list-group-item list-group-item-success">{searchItem.quantity} Number of <i>{searchItem.menu_name}</i> <p align="right">Price  = {searchItem.quantity}*${searchItem.menu_price} </p> </li>
 
             });
-            currentOrders = <div class="container"> <br></br> <br></br> <h2>You have selected following Items:</h2> <ul class="list-group">{currentOrders}</ul>
+            currentOrders = <div class="container"> <br></br> <br></br> <h2>You have added the following Items to your cart:<i class="fas fa-shopping-cart"></i></h2> <ul class="list-group">{currentOrders}</ul>
                 <br></br>
                 <h3>Your total is: ${total}</h3>
                 <button class="btn btn-primary" onClick={() => this.orderNow(total)}>Order Now!!</button> <button class="btn btn-danger" onClick={this.redirectHome}>Cancel</button>
@@ -278,6 +302,7 @@ class LoadRestaurant extends Component {
                 {breakfastmenu}
                 {lunchmenu}
                 {appetizersmenu}
+                {dinnermenu}
 
                 {currentOrders}
 

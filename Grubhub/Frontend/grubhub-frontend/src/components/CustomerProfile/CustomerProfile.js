@@ -261,7 +261,7 @@ class CustomerProfile extends Component {
             <form onSubmit={(e) => this.props.updateProfileData(this.getUploadData(e,"number"))}>
               <div class="form-group">
                 <label for="cust_number_holder">Phone Number:</label>
-                <input type="number" class="form-control" name="cust_number_holder" onChange={this.props.valueChangeObserver} defaultValue={defaultNumber} id="cust_number_holder" required />
+                <input type="number" class="form-control" name="cust_number_holder" pattern="[0-9]{10}" title="10 Digits Only" onChange={this.props.valueChangeObserver} defaultValue={defaultNumber} id="cust_number_holder" required />
               </div>
               <button type="submit" class="btn btn-success" >Update Number</button>
             &nbsp;  &nbsp;  &nbsp;

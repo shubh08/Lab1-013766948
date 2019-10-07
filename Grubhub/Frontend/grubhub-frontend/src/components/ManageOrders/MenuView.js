@@ -83,6 +83,7 @@ let rest_name = cookie.load('rest_name')
         let breakfastmenu = null
         let lunchmenu = null
         let appetizersmenu = null
+        let dinnermenu = null
         let currentOrders = null
         let total = 0;
 
@@ -99,6 +100,7 @@ let rest_name = cookie.load('rest_name')
         let breakFast = []
         let lunch = []
         let appetizers = []
+        let dinner = []
 
         this.props.restaurantData.forEach((restItem) => {
 
@@ -108,6 +110,8 @@ let rest_name = cookie.load('rest_name')
                 lunch.push(restItem)
             else if ((restItem.section_name).toLowerCase() === 'appetizers')
                 appetizers.push(restItem)
+                else if ((restItem.section_name).toLowerCase() === 'dinner')
+                dinner.push(restItem)
         });
 
         if (breakFast.length > 0) {
@@ -127,6 +131,26 @@ let rest_name = cookie.load('rest_name')
            </div>
            <br/><hr/>
              </div> 
+        }
+        if (dinner.length > 0) {
+            dinnermenu = dinner.map((item) => {
+
+                return <div class="columnCard"><div class="card">
+                    <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <h3>{item.menu_name}</h3>
+                    <p>{item.menu_description}</p>
+                    <p>${item.menu_price}</p>
+
+                    <input type='button' value='-' class='qtyminus' onClick={() => this.decrease(item)} field='quantity' />
+                    <p id={item.menu_id}>0</p>
+                    <input type='button' value='+' class='qtyplus' onClick={() => this.increase(item)} field='quantity' />
+                </div> </div>
+            })
+            dinnermenu = <div><h3>Dinner Menu:</h3><div class="rowCard">{dinnermenu}
+
+            </div>
+                <br /><hr />
+            </div>
         }
         if (lunch.length > 0) {
             lunchmenu = lunch.map((item) => {
@@ -167,7 +191,7 @@ let rest_name = cookie.load('rest_name')
             {breakfastmenu}
             {lunchmenu}
             {appetizersmenu}
-
+            {dinnermenu}
             {currentOrders}
             
         </div>
