@@ -22,7 +22,7 @@ export const loadProfileData = (data) =>{
     console.log('Preapring for Launch',data)
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/loadProfileData',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/loadProfileData',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -68,7 +68,7 @@ export const updateProfileData = (data) =>{
     console.log('Preapring for Launch update',data)
     return dispatch =>{
     axios.defaults.withCredentials = true;
-    axios.post('http://localhost:3001/update',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/update',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -112,7 +112,7 @@ export const login = (data) =>{
     axios.defaults.withCredentials = true;
 
     //make a post request with the user data
-    axios.post('http://localhost:3001/signin',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/signin',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -162,7 +162,7 @@ export const signUp = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/signup',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/signup',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -210,7 +210,7 @@ export const loadSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadSectionData',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/loadSectionData',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -261,7 +261,7 @@ export const addSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addSection',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/addSection',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -307,7 +307,7 @@ export const updateSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateSection',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/updateSection',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -359,7 +359,7 @@ export const loadMenuData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadMenu',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/loadMenu',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -420,7 +420,7 @@ export const addMenuData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/addMenu',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/addMenu',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -471,7 +471,7 @@ export const updateMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/updateMenu',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/updateMenu',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -526,7 +526,7 @@ export const deleteSectionData = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteSection',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/deleteSection',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -580,7 +580,7 @@ export const deleteMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/deleteMenu',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/deleteMenu',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -633,7 +633,7 @@ export const searchDishes = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/searchDishes',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/searchDishes',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -684,7 +684,7 @@ export const loadRestaurant = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/loadRestaurant',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/loadRestaurant',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -735,7 +735,7 @@ export const order = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/order',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/order',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -789,7 +789,7 @@ export const pastorder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/pastorder',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/pastorder',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -841,7 +841,7 @@ export const upComingOrder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingOrder',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/upComingOrder',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -896,7 +896,7 @@ export const upComingRestaurantOrder = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upComingRestaurantOrder',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/upComingRestaurantOrder',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -943,7 +943,7 @@ export const changeOrderStateProps = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/changeOrderState',data)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/changeOrderState',data)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
@@ -1000,7 +1000,7 @@ export const uploadMenu = (data) =>{
     axios.defaults.withCredentials = true;
     
     //make a post request with the user data
-    axios.post('http://localhost:3001/upload', fd, config)
+    axios.post('http://ec2-3-17-152-109.us-east-2.compute.amazonaws.com:3001/upload', fd, config)
         .then(response => {
             console.log("Status Code : ",response.data);
             if(response.status === 200){
