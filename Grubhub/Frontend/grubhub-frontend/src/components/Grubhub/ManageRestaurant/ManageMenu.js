@@ -195,12 +195,12 @@ class ManageMenu extends Component {
     if(this.props.menuData!==undefined){
     menuArray = this.props.menuData.map((Menu) => {
 
-      let imgURL = 'http://localhost:3001/' + Menu.menu_image
+      let imgURL = 'http://3.17.152.109:3001/' + Menu.menu_image
       let menu_id = Menu.menu_id
       return <li class="list-group-item"><h3>{Menu.menu_name}</h3>  &nbsp; <p>${Menu.menu_price}</p>
 
 
-        <img src={'http://localhost:3001/' + Menu.menu_image} style={{ height: "200px", width: "200px" }}></img>
+        <img src={'http://3.17.152.109:3001/' + Menu.menu_image} style={{ height: "200px", width: "200px" }}></img>
 
         &nbsp; <p>Description:{Menu.menu_description}</p>
         &nbsp;

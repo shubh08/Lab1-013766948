@@ -118,7 +118,7 @@ let rest_name = cookie.load('rest_name')
             breakfastmenu = breakFast.map((item) => {
                 
                 return <div class="columnCard"><div class="card">
-                     <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                     <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
@@ -136,7 +136,7 @@ let rest_name = cookie.load('rest_name')
             dinnermenu = dinner.map((item) => {
 
                 return <div class="columnCard"><div class="card">
-                    <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
@@ -155,7 +155,7 @@ let rest_name = cookie.load('rest_name')
         if (lunch.length > 0) {
             lunchmenu = lunch.map((item) => {
                 return <div class="columnCard"> <div class="card">
-                     <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                     <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
@@ -168,7 +168,7 @@ let rest_name = cookie.load('rest_name')
         if (appetizers.length > 0) {
             appetizersmenu = appetizers.map((item) => {
                 return <div class="columnCard"> <div class="card">
-                     <img src={'http://localhost:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                     <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
