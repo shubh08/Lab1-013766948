@@ -53,9 +53,9 @@ const upload = multer({storage:storage})
 
 
 let connPool = sqlCon.createPool({
-    host:'database-1.cecr4orrxfsb.us-east-2.rds.amazonaws.com',
+    host:'',
     user:'admin',
-    password:'shubhamkumar',
+    password:'',
     database:'grubhub'
 });
 
