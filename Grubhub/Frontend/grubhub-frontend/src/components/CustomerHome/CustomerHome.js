@@ -91,7 +91,7 @@ class CustomerHome extends Component{
                     <form>
                     <div class="form-group">
     
-    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search Dishes" onChange={this.valueChangedHandler}/>
+    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Enter Dish name to search (For example:'Pasta')" onChange={this.valueChangedHandler}/>
   </div>
                     </form>
                     <button class="btn btn-primary" onClick={this.search}>Search</button>
