@@ -6,6 +6,7 @@ const signinCust = (req, res, connPool, bcrypt) =>{
          console.log('Inside customer sign in!');
          let queryTest = 'select * from  customer_info where cust_email = ?';
          console.log(queryTest);
+         console.log('connection object recieved',conn)
          conn.query(queryTest,[email],(error,result)=>{
              if(error)
              {
