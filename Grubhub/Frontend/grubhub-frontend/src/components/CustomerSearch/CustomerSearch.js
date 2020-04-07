@@ -146,7 +146,7 @@ viewSection = (data)=>{
               <div class="section">
           
           
-         <h2 align="center">Search Results for:"<b>{this.state.searchBox}</b>"</h2>
+         <h2 align="center">Restaurants offering this dish !"<b>{this.state.searchBox}</b>"</h2>
          <div class="dropdown" align="center">
   <p><b>Filter By Cuisine</b></p>
   {/* <div>
