@@ -203,7 +203,7 @@ class LoadRestaurant extends Component {
             breakfastmenu = breakFast.map((item) => {
 
                 return <div class="columnCard"><div class="card">
-                    <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <img src={'http://18.221.150.163:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
@@ -223,7 +223,7 @@ class LoadRestaurant extends Component {
             dinnermenu = dinner.map((item) => {
 
                 return <div class="columnCard"><div class="card">
-                    <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <img src={'http://18.221.150.163:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
@@ -242,7 +242,7 @@ class LoadRestaurant extends Component {
         if (lunch.length > 0) {
             lunchmenu = lunch.map((item) => {
                 return <div class="columnCard"> <div class="card">
-                    <img src={'http://3.17.152.109:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
+                    <img src={'http://18.221.150.163:3001/' + item.menu_image} style={{ height: "100px", width: "100px" }}></img>
                     <h3>{item.menu_name}</h3>
                     <p>{item.menu_description}</p>
                     <p>${item.menu_price}</p>
