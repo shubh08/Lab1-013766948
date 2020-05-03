@@ -259,7 +259,7 @@ changeNumber=()=>{
                 Image:
                 <br/>
               {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
-              <img src={'http://3.17.152.109:3001/' + this.props.owner_image} style={{ height: "200px", width: "200px" }}></img>
+              <img src={'http://18.221.150.163:3001/' + this.props.owner_image} style={{ height: "200px", width: "200px" }}></img>
                 <a onClick={this.changeImage} class='customALign'>Edit</a>
             </div>
             <div id='imageedit' style={{display : 'none'}}>
@@ -283,7 +283,7 @@ changeNumber=()=>{
                 Restaurant Image:
                 <br/>
               {/* <b> {this.props.name===""?this.props.objLogin.cust_name:this.props.objLogin.cust_name} </b> */}
-              <img src={'http://3.17.152.109:3001/' + this.props.rest_image} style={{ height: "200px", width: "200px" }}></img>
+              <img src={'http://18.221.150.163:3001/' + this.props.rest_image} style={{ height: "200px", width: "200px" }}></img>
                 <a onClick={this.changeRestImage} class='customALign'>Edit</a>
             </div>
             <div id='imageRestedit' style={{display : 'none'}}>
