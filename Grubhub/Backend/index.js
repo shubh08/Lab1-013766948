@@ -63,7 +63,7 @@ let connPool = sqlCon.createPool({
 app.use(cookieParser());
 
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: 'http://3.17.152.109:3000', credentials: true }));
+app.use(cors({ origin: 'http://18.221.150.163:3000', credentials: true }));
 
 //use express session to maintain session data
 app.use(session({
