@@ -199,7 +199,7 @@ class CustomerProfile extends Component {
             <div>
               Customer Image
                 <br />
-              <img src={'http://3.17.152.109:3001/' + this.props.cust_image} class="img1" style={{ height: "200px", width: "200px" }}></img>
+              <img src={'http://18.221.150.163:3001/' + this.props.cust_image} class="img1" style={{ height: "200px", width: "200px" }}></img>
               <a onClick={this.changeImage} class='customALign'>Edit</a>
             </div>
           </div>
